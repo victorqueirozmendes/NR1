@@ -1,0 +1,59 @@
+✅ CHECKLIST RÁPIDO - O QUE FAZER AGORA
+
+════════════════════════════════════════════════════════════════════════════
+
+Você está no phpMyAdmin? SIM ✓
+
+════════════════════════════════════════════════════════════════════════════
+
+📋 5 PASSOS PARA COMPLETAR:
+
+( ) PASSO 1: Criar Banco de Dados
+    └─ phpMyAdmin → Bancos de Dados
+    └─ Nome: nr1_ead
+    └─ [Criar]
+
+( ) PASSO 2: Importar Estrutura
+    └─ Clique em: nr1_ead (na esquerda)
+    └─ Aba: Importar
+    └─ Arquivo: backend/create-db.sql
+    └─ [Executar]
+
+( ) PASSO 3: Verificar Tabelas
+    └─ Você deve ver 7 tabelas criadas
+    └─ usuarios, cursos, modulos, aulas, materiais, acessos, progresso
+    └─ Pronto ✓
+
+( ) PASSO 4: Criar Usuário MySQL
+    └─ Painel Hostinger → Banco de Dados
+    └─ Aba: Usuários MySQL
+    └─ [+ Novo Usuário]
+    └─ Nome: nr1_user
+    └─ Senha: [gere automática com 🔄]
+    └─ [Criar]
+    └─ Guarde a senha!
+
+( ) PASSO 5: Dar Privilégios
+    └─ Clique em nr1_user → Gerenciar Privilégios
+    └─ Marque: nr1_ead
+    └─ Clique: "Todos"
+    └─ [Aplicar]
+
+════════════════════════════════════════════════════════════════════════════
+
+📝 APÓS COMPLETAR:
+
+1. Edite: backend/.env
+   DB_USER=nr1_user
+   DB_PASSWORD=sua_senha_aqui
+   DB_NAME=nr1_ead
+
+2. Leia: DEPLOY_HOSTINGER.md
+
+3. Execute: deploy.sh
+
+════════════════════════════════════════════════════════════════════════════
+
+Tempo estimado: 10 minutos
+
+════════════════════════════════════════════════════════════════════════════
