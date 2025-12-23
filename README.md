@@ -1,2 +1,2 @@
 # NR1
-Plataforma completa mentiria impresarial 
+Plataforma completa mentoria empresarial
