@@ -1,0 +1,360 @@
+📦 ESTRUTURA COMPLETA DO PROJETO NR1 EAD
+===============================================
+
+NR1/
+│
+├── 📄 README.md                          # Documentação principal do projeto
+├── 📄 SETUP.md                           # Guia de instalação e setup
+├── 📄 ESTRUTURA.txt                      # Este arquivo
+├── 📄 docker-compose.yml                 # Orquestração com Docker
+│
+├── 📁 backend/                           # Servidor Express + MySQL
+│   ├── 📄 package.json                   # Dependências
+│   ├── 📄 .env.example                   # Variáveis de ambiente
+│   ├── 📄 .gitignore
+│   ├── 📄 Dockerfile
+│   │
+│   └── src/
+│       ├── 📄 index.js                   # Entrada da aplicação
+│       │
+│       ├── config/
+│       │   ├── database.js               # Conexão e queries MySQL
+│       │   └── jwt.js                    # Geração e validação de tokens
+│       │
+│       ├── middleware/
+│       │   └── auth.js                   # Autenticação e autorização
+│       │
+│       ├── database/
+│       │   └── migrate.js                # Criação de tabelas e admin
+│       │
+│       ├── controllers/                  # Lógica de negócio
+│       │   ├── authController.js         # Login, registro, perfil
+│       │   ├── courseController.js       # Gerenciamento de cursos
+│       │   ├── lessonController.js       # Gerenciamento de aulas
+│       │   ├── userController.js         # Gerenciamento de usuários
+│       │   └── progressController.js     # Rastreamento de progresso
+│       │
+│       ├── routes/                       # Definição de rotas
+│       │   ├── auth.js
+│       │   ├── courses.js
+│       │   ├── lessons.js
+│       │   ├── users.js
+│       │   └── progress.js
+│       │
+│       ├── services/                     # Serviços (integração, etc)
+│       └── utils/                        # Funções utilitárias
+│
+├── 📁 frontend/                          # Aplicação React + Vite
+│   ├── 📄 package.json                   # Dependências
+│   ├── 📄 vite.config.js                 # Configuração Vite
+│   ├── 📄 index.html                     # HTML principal
+│   ├── 📄 .gitignore
+│   ├── 📄 Dockerfile
+│   │
+│   └── src/
+│       ├── 📄 main.jsx                   # Entrada da aplicação
+│       ├── 📄 App.jsx                    # Componente raiz e rotas
+│       ├── 📄 index.css                  # Estilos globais
+│       │
+│       ├── components/                   # Componentes reutilizáveis
+│       │   ├── Header.jsx                # Barra de navegação
+│       │   ├── Header.css
+│       │   └── ProtectedRoute.jsx        # Proteção de rotas
+│       │
+│       ├── pages/                        # Páginas da aplicação
+│       │   ├── Auth.jsx                  # Login e Registro
+│       │   ├── Auth.css
+│       │   ├── Dashboard.jsx             # Dashboard aluno e admin
+│       │   ├── Dashboard.css
+│       │   ├── AdminPages.jsx            # Páginas administrativas
+│       │   ├── AdminPages.css
+│       │   └── Home.jsx                  # Página inicial
+│       │
+│       ├── services/                     # Chamadas à API
+│       │   ├── api.js                    # Configuração Axios
+│       │   └── index.js                  # Serviços agrupados
+│       │
+│       ├── context/                      # Context API
+│       │   └── AuthContext.jsx           # Gerenciamento de autenticação
+│       │
+│       └── utils/                        # Utilitários
+│           └── useAuth.js                # Hook de autenticação
+│
+└── 📁 docs/                              # Documentação
+    ├── API.md                            # Documentação completa da API
+    └── EXEMPLOS.md                       # Exemplos de uso (curl, fetch)
+
+===============================================
+🔐 BANCO DE DADOS (MySQL)
+===============================================
+
+Tabelas criadas automaticamente na migração:
+
+users
+├── id (INT PRIMARY KEY)
+├── nome (VARCHAR)
+├── email (VARCHAR UNIQUE)
+├── senha (VARCHAR - hash)
+├── role (ENUM: admin, aluno)
+├── ativo (BOOLEAN)
+└── timestamps
+
+courses
+├── id (INT PRIMARY KEY)
+├── nome (VARCHAR)
+├── descricao (TEXT)
+└── timestamps
+
+modules
+├── id (INT PRIMARY KEY)
+├── course_id (FK)
+├── nome (VARCHAR)
+├── ordem (INT)
+└── timestamp
+
+lessons
+├── id (INT PRIMARY KEY)
+├── module_id (FK)
+├── titulo (VARCHAR)
+├── descricao (TEXT)
+├── video_url (VARCHAR)
+├── ordem (INT)
+└── timestamp
+
+materials
+├── id (INT PRIMARY KEY)
+├── lesson_id (FK)
+├── tipo (ENUM: pdf, link, arquivo)
+├── titulo (VARCHAR)
+├── url (VARCHAR)
+└── timestamp
+
+progress
+├── id (INT PRIMARY KEY)
+├── user_id (FK)
+├── lesson_id (FK)
+├── concluida (BOOLEAN)
+└── timestamps
+
+course_access
+├── id (INT PRIMARY KEY)
+├── user_id (FK)
+├── course_id (FK)
+├── ativo (BOOLEAN)
+└── timestamp
+
+===============================================
+🚀 FLUXO DE AUTENTICAÇÃO
+===============================================
+
+1. Usuário faz login/registro
+2. Backend valida credenciais
+3. Backend gera JWT token
+4. Token é armazenado no localStorage (frontend)
+5. Token é enviado em cada requisição (header Authorization)
+6. Middleware valida token
+7. Usuário acessa recursos conforme seu role
+
+===============================================
+📊 ROLES E PERMISSÕES
+===============================================
+
+ADMIN
+├── Criar/editar/deletar cursos
+├── Criar/editar/deletar módulos
+├── Criar/editar/deletar aulas
+├── Adicionar materiais
+├── Liberar/bloquear acesso de alunos
+├── Gerenciar usuários
+└── Ver progresso de todos os alunos
+
+ALUNO
+├── Ver cursos liberados
+├── Assistir aulas (YouTube privado)
+├── Acessar materiais
+├── Marcar aulas como concluídas
+├── Ver seu próprio progresso
+└── Ver dashboard pessoal
+
+===============================================
+🌐 ENDPOINTS PRINCIPAIS
+===============================================
+
+Auth
+├── POST /api/auth/register
+├── POST /api/auth/login
+└── GET /api/auth/me
+
+Courses
+├── GET /api/courses (público)
+├── GET /api/courses/my-courses (aluno)
+├── POST /api/courses (admin)
+├── PUT /api/courses/:id (admin)
+├── DELETE /api/courses/:id (admin)
+├── POST /api/courses/grant-access (admin)
+└── POST /api/courses/revoke-access (admin)
+
+Lessons & Modules
+├── GET /api/lessons
+├── GET /api/lessons/:id
+├── POST /api/lessons (admin)
+├── GET /api/lessons/modules/list
+├── POST /api/lessons/modules (admin)
+└── POST /api/lessons/materials (admin)
+
+Progress
+├── POST /api/progress/mark-complete (aluno)
+├── GET /api/progress (aluno)
+├── GET /api/progress/course/:id (aluno)
+└── GET /api/progress/student/:id (admin)
+
+Users (Admin)
+├── GET /api/users
+├── POST /api/users
+├── PUT /api/users/:id
+├── DELETE /api/users/:id
+└── PATCH /api/users/:id/deactivate
+
+===============================================
+📱 COMPONENTES FRONTEND
+===============================================
+
+Header
+├── Logo/Menu
+├── Links de navegação
+├── User dropdown
+└── Logout
+
+Login/Register
+├── Formulário de autenticação
+├── Validação de email/senha
+└── Link para trocar página
+
+Dashboard (Aluno)
+├── Lista de cursos liberados
+├── Cards de cursos
+└── Links para acessar aulas
+
+Dashboard (Admin)
+├── Estatísticas (cursos, alunos)
+├── Links rápidos
+└── Painel de ações
+
+AdminCourses
+├── Tabela de cursos
+├── Criar novo curso
+├── Editar curso
+└── Deletar curso
+
+AdminUsers
+├── Tabela de usuários
+├── Criar usuário
+├── Editar usuário
+├── Deletar usuário
+└── Desativar usuário
+
+ProtectedRoute
+├── Valida autenticação
+└── Valida role (se necessário)
+
+===============================================
+🛠️ TECNOLOGIAS UTILIZADAS
+===============================================
+
+Backend
+├── Node.js + Express
+├── MySQL (conexão via mysql2/promise)
+├── JWT (jsonwebtoken)
+├── Bcryptjs (hash de senhas)
+├── Helmet (segurança)
+├── CORS (cross-origin)
+├── Rate-limiting
+└── Multer (upload - preparado)
+
+Frontend
+├── React 18
+├── Vite (bundler)
+├── React Router v6
+├── Axios (HTTP client)
+├── Context API (state management)
+└── CSS (CSS-in-JS pronto para Tailwind)
+
+===============================================
+⚙️ CONFIGURAÇÕES IMPORTANTES
+===============================================
+
+Backend
+├── PORT: 5000
+├── JWT_SECRET: Alterar em produção
+├── CORS_ORIGIN: http://localhost:5173
+├── NODE_ENV: development/production
+└── DB_*: Credenciais MySQL
+
+Frontend
+├── PORT: 5173
+├── API_URL: http://localhost:5000/api
+├── Proxy para /api
+└── localStorage para tokens
+
+===============================================
+📝 PRÓXIMOS PASSOS / TODO
+===============================================
+
+Priority 1 (Essencial)
+├── Testes unitários (backend)
+├── Integração com YouTube privado
+├── Upload de materiais (S3/R2)
+└── Validação de formulários (frontend)
+
+Priority 2 (Importante)
+├── Sistema de pagamento
+├── Notificações por email
+├── Dashboard de análise (admin)
+├── Relatórios de progresso
+└── Sistema de comentários
+
+Priority 3 (Futuro)
+├── Certificados de conclusão
+├── Gamificação (badges, pontos)
+├── Busca e filtros avançados
+├── Mobile app (React Native)
+└── Integração com CRM
+
+===============================================
+✅ CHECKLIST DE FUNCIONAMENTO
+===============================================
+
+Setup
+├── ✅ MySQL rodando
+├── ✅ Backend instalado
+├── ✅ Frontend instalado
+├── ✅ Tabelas criadas
+└── ✅ Admin padrão criado
+
+Autenticação
+├── ✅ Registrar aluno
+├── ✅ Login
+├── ✅ JWT gerado
+├── ✅ Token armazenado
+└── ✅ Rota protegida funciona
+
+Funcionalidades Admin
+├── ✅ Criar curso
+├── ✅ Criar módulo
+├── ✅ Criar aula
+├── ✅ Adicionar material
+├── ✅ Liberar acesso
+├── ✅ Gerenciar usuários
+└── ✅ Ver progresso
+
+Funcionalidades Aluno
+├── ✅ Ver cursos liberados
+├── ✅ Acessar aula
+├── ✅ Ver materiais
+├── ✅ Marcar concluída
+└── ✅ Ver progresso
+
+===============================================
+
+Desenvolvido com ❤️ para educação de qualidade
+Última atualização: 23 de dezembro de 2025
