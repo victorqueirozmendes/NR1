@@ -1,0 +1,208 @@
+-- ==============================
+-- DATABASE
+-- ==============================
+CREATE DATABASE IF NOT EXISTS nr1_ead
+CHARACTER SET utf8mb4
+COLLATE utf8mb4_unicode_ci;
+
+USE nr1_ead;
+
+-- ==============================
+-- TABELA USUARIOS (Autenticação)
+-- Compatível com: auth.php, login.php, register.php
+-- ==============================
+CREATE TABLE usuarios (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  nome VARCHAR(150) NOT NULL,
+  email VARCHAR(150) NOT NULL UNIQUE,
+  senha VARCHAR(255) NOT NULL,
+  role ENUM('admin','aluno') DEFAULT 'aluno',
+  ativo BOOLEAN DEFAULT FALSE,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- ==============================
+-- TABELA CURSOS
+-- Compatível com: admin/courses.php, student/courses.php
+-- ==============================
+CREATE TABLE cursos (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  titulo VARCHAR(200) NOT NULL,
+  descricao TEXT,
+  instrutor VARCHAR(150),
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- ==============================
+-- TABELA MODULOS
+-- Compatível com: admin/modules.php, student/course.php
+-- ==============================
+CREATE TABLE modulos (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  curso_id INT NOT NULL,
+  titulo VARCHAR(200) NOT NULL,
+  descricao TEXT,
+  ordem INT DEFAULT 0,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (curso_id) REFERENCES cursos(id) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- ==============================
+-- TABELA AULAS
+-- Compatível com: admin/lessons.php, student/lesson.php
+-- ==============================
+CREATE TABLE aulas (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  modulo_id INT NOT NULL,
+  titulo VARCHAR(200) NOT NULL,
+  conteudo LONGTEXT,
+  ordem INT DEFAULT 0,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (modulo_id) REFERENCES modulos(id) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- ==============================
+-- TABELA MATERIAIS
+-- Compatível com: admin/material-upload.php, student/lesson.php
+-- ==============================
+CREATE TABLE materiais (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  aula_id INT NOT NULL,
+  titulo VARCHAR(200),
+  arquivo VARCHAR(255),
+  tipo ENUM('pdf','doc','xlsx','video','link') DEFAULT 'pdf',
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (aula_id) REFERENCES aulas(id) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- ==============================
+-- TABELA ACESSOS (Inscrições)
+-- Compatível com: student/courses.php, student/course.php
+-- ==============================
+CREATE TABLE acessos (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  usuario_id INT NOT NULL,
+  curso_id INT NOT NULL,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  UNIQUE(usuario_id, curso_id),
+  FOREIGN KEY (usuario_id) REFERENCES usuarios(id) ON DELETE CASCADE,
+  FOREIGN KEY (curso_id) REFERENCES cursos(id) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- ==============================
+-- TABELA PROGRESSO
+-- Compatível com: student/lesson.php, student/dashboard.php
+-- ==============================
+CREATE TABLE progresso (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  usuario_id INT NOT NULL,
+  aula_id INT NOT NULL,
+  completado BOOLEAN DEFAULT FALSE,
+  data_conclusao TIMESTAMP NULL,
+  UNIQUE(usuario_id, aula_id),
+  FOREIGN KEY (usuario_id) REFERENCES usuarios(id) ON DELETE CASCADE,
+  FOREIGN KEY (aula_id) REFERENCES aulas(id) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- ==============================
+-- TABELA COMENTARIOS
+-- Compatível com: student/lesson.php, admin/users.php
+-- ==============================
+CREATE TABLE comentarios (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  usuario_id INT NOT NULL,
+  aula_id INT NOT NULL,
+  comentario TEXT NOT NULL,
+  oculto BOOLEAN DEFAULT FALSE,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (usuario_id) REFERENCES usuarios(id) ON DELETE CASCADE,
+  FOREIGN KEY (aula_id) REFERENCES aulas(id) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- ==============================
+-- DADOS PADRÃO
+-- Admin: admin@nr1.com / 123456
+-- ==============================
+INSERT INTO usuarios (nome, email, senha, role, ativo)
+VALUES (
+  'Administrador',
+  'admin@nr1.com',
+  '$2y$10$8T1lzWGl1IG5eJ5Wz6kh5eeKYxQvhqXvGVz7q0L2L8m3k4j1h0K3a', -- bcrypt: 123456
+  'admin',
+  TRUE
+);
+
+-- ==============================
+-- DADOS DE TESTE
+-- ==============================
+
+-- Inserir 2 cursos de exemplo
+INSERT INTO cursos (titulo, descricao, instrutor) VALUES
+('PHP Completo para Iniciantes', 'Aprenda PHP do zero até criação de aplicações web profissionais', 'João Silva'),
+('JavaScript Moderno', 'Dominar JavaScript ES6+ e frameworks modernos', 'Maria Santos');
+
+-- Inserir módulos para o primeiro curso
+INSERT INTO modulos (curso_id, titulo, descricao, ordem) VALUES
+(1, 'Fundamentos do PHP', 'Conceitos básicos e estrutura da linguagem', 1),
+(1, 'Manipulação de Banco de Dados', 'MySQLi, Prepared Statements e Segurança', 2),
+(1, 'Projeto Prático', 'Construir uma aplicação web completa', 3);
+
+-- Inserir módulos para o segundo curso
+INSERT INTO modulos (curso_id, titulo, descricao, ordem) VALUES
+(2, 'Sintaxe e Variáveis', 'Aprender a sintaxe do JavaScript moderno', 1),
+(2, 'DOM e Events', 'Manipulação do DOM e tratamento de eventos', 2);
+
+-- Inserir aulas para o módulo 1 do curso 1
+INSERT INTO aulas (modulo_id, titulo, conteudo, ordem) VALUES
+(1, 'O que é PHP?', '<h2>O que é PHP?</h2><p>PHP é uma linguagem de programação server-side amplamente utilizada para desenvolvimento web.</p><p><strong>Características principais:</strong></p><ul><li>Linguagem interpretada</li><li>Open source</li><li>Fácil de aprender</li><li>Grande comunidade</li></ul>', 1),
+(1, 'Variáveis e Tipos', '<h2>Variáveis e Tipos de Dados</h2><p>Em PHP, você pode armazenar diferentes tipos de dados em variáveis.</p><p><code>$variavel = "valor";</code></p><p>Tipos: String, Integer, Float, Boolean, Array, Object</p>', 2),
+(1, 'Estruturas de Controle', '<h2>If, Else, Switch</h2><p>Controle o fluxo do seu programa com estruturas condicionais.</p><pre><code>if ($idade >= 18) {\n    echo "Maior de idade";\n}</code></pre>', 3);
+
+-- Inserir aulas para o módulo 2 do curso 1
+INSERT INTO aulas (modulo_id, titulo, conteudo, ordem) VALUES
+(2, 'Conexão ao Banco de Dados', '<h2>MySQLi Conexão</h2><p>Aprenda a se conectar ao MySQL usando MySQLi.</p><p>Use always prepared statements para evitar SQL injection!</p>', 1),
+(2, 'Prepared Statements', '<h2>Segurança com Prepared Statements</h2><p>Evite vulnerabilidades SQL usando placeholders (?).</p><pre><code>$stmt = $conn->prepare("SELECT * FROM usuarios WHERE email = ?");</code></pre>', 2);
+
+-- Inserir aluno de teste
+INSERT INTO usuarios (nome, email, senha, role, ativo) VALUES
+('João da Silva', 'joao@example.com', '$2y$10$8T1lzWGl1IG5eJ5Wz6kh5eeKYxQvhqXvGVz7q0L2L8m3k4j1h0K3a', 'aluno', TRUE);
+
+-- Inscrever aluno nos cursos
+INSERT INTO acessos (usuario_id, curso_id) VALUES
+(2, 1), -- João inscrito no curso 1
+(2, 2); -- João inscrito no curso 2
+
+-- Marcar algumas aulas como completas
+INSERT INTO progresso (usuario_id, aula_id, completado, data_conclusao) VALUES
+(2, 1, TRUE, NOW()),
+(2, 2, TRUE, NOW()),
+(2, 3, FALSE, NULL);
+
+-- Inserir comentários de exemplo
+INSERT INTO comentarios (usuario_id, aula_id, comentario, oculto) VALUES
+(2, 1, 'Ótima explicação! Consegui entender os conceitos básicos.', FALSE),
+(2, 2, 'Poderia explicar mais sobre os tipos de dados?', FALSE);
+
+-- ==============================
+-- ÍNDICES PARA PERFORMANCE
+-- ==============================
+CREATE INDEX idx_usuarios_email ON usuarios(email);
+CREATE INDEX idx_modulos_curso ON modulos(curso_id);
+CREATE INDEX idx_aulas_modulo ON aulas(modulo_id);
+CREATE INDEX idx_materiais_aula ON materiais(aula_id);
+CREATE INDEX idx_acessos_usuario ON acessos(usuario_id);
+CREATE INDEX idx_acessos_curso ON acessos(curso_id);
+CREATE INDEX idx_progresso_usuario ON progresso(usuario_id);
+CREATE INDEX idx_progresso_aula ON progresso(aula_id);
+CREATE INDEX idx_comentarios_usuario ON comentarios(usuario_id);
+CREATE INDEX idx_comentarios_aula ON comentarios(aula_id);
+
+-- ==============================
+-- VERIFICAÇÃO FINAL
+-- ==============================
+-- Run these commands to verify everything is correct:
+-- SHOW TABLES;
+-- DESCRIBE usuarios;
+-- DESCRIBE cursos;
+-- SELECT * FROM usuarios;
+-- SELECT * FROM cursos;

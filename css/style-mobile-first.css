@@ -1,0 +1,1212 @@
+/* ======================================
+   NR1 EAD - Stylesheet Mobile First
+   /css/style-mobile-first.css
+   ====================================== */
+
+/* ======================================
+   RESET E BASE (Mobile First)
+   ====================================== */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --primary: #3498db;
+    --primary-dark: #2980b9;
+    --secondary: #2c3e50;
+    --success: #27ae60;
+    --danger: #e74c3c;
+    --warning: #f39c12;
+    --light: #ecf0f1;
+    --muted: #7f8c8d;
+    --text: #34495e;
+    --border: #bdc3c7;
+    --shadow: 0 2px 8px rgba(0,0,0,0.1);
+    --shadow-lg: 0 4px 16px rgba(0,0,0,0.15);
+    --radius: 4px;
+    --spacing: 1rem;
+}
+
+html, body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    font-size: 14px;
+    line-height: 1.6;
+    color: var(--text);
+    background-color: #f5f7fa;
+    -webkit-font-smoothing: antialiased;
+}
+
+/* ======================================
+   TYPOGRAPHY
+   ====================================== */
+
+h1, h2, h3, h4, h5, h6 {
+    color: var(--secondary);
+    font-weight: 600;
+    line-height: 1.3;
+}
+
+h1 { font-size: 24px; margin-bottom: 16px; }
+h2 { font-size: 20px; margin-bottom: 12px; }
+h3 { font-size: 18px; margin-bottom: 10px; }
+h4 { font-size: 16px; margin-bottom: 8px; }
+
+p { margin-bottom: 12px; }
+
+a {
+    color: var(--primary);
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+a:hover {
+    color: var(--primary-dark);
+}
+
+/* ======================================
+   CONTAINER (Mobile First)
+   ====================================== */
+
+.container {
+    width: 100%;
+    padding: 0 16px;
+    margin: 0 auto;
+}
+
+/* Tablet */
+@media (min-width: 768px) {
+    .container {
+        padding: 0 20px;
+    }
+}
+
+/* Desktop */
+@media (min-width: 1024px) {
+    .container {
+        max-width: 1200px;
+        padding: 0 24px;
+    }
+}
+
+/* ======================================
+   NAVBAR (Mobile First)
+   ====================================== */
+
+.navbar {
+    background-color: var(--secondary);
+    color: white;
+    padding: 12px 0;
+    box-shadow: var(--shadow);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.navbar .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.navbar-brand {
+    font-size: 18px;
+    font-weight: 700;
+    color: white;
+    text-decoration: none;
+}
+
+.navbar-user {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.navbar-user span {
+    font-size: 12px;
+}
+
+.navbar-user strong {
+    display: none;
+}
+
+/* Tablet */
+@media (min-width: 768px) {
+    .navbar {
+        padding: 15px 0;
+    }
+
+    .navbar-user span {
+        font-size: 13px;
+    }
+
+    .navbar-user strong {
+        display: inline;
+    }
+}
+
+/* ======================================
+   FORMULÁRIOS (Mobile First)
+   ====================================== */
+
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.form-group label {
+    font-weight: 600;
+    color: var(--secondary);
+    font-size: 13px;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    padding: 12px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    font-size: 14px;
+    font-family: inherit;
+    width: 100%;
+    transition: all 0.2s;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 8px rgba(52, 152, 219, 0.2);
+}
+
+.form-group textarea {
+    resize: vertical;
+    min-height: 100px;
+}
+
+/* ======================================
+   BOTÕES (Mobile First)
+   ====================================== */
+
+.btn {
+    padding: 12px 16px;
+    border: none;
+    border-radius: var(--radius);
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    text-decoration: none;
+    white-space: nowrap;
+    min-height: 44px;
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
+}
+
+.btn:active {
+    transform: translateY(0);
+}
+
+.btn-primary {
+    background-color: var(--primary);
+    color: white;
+}
+
+.btn-primary:hover {
+    background-color: var(--primary-dark);
+}
+
+.btn-secondary {
+    background-color: var(--muted);
+    color: white;
+}
+
+.btn-secondary:hover {
+    background-color: #5d6d7b;
+}
+
+.btn-success {
+    background-color: var(--success);
+    color: white;
+}
+
+.btn-success:hover {
+    background-color: #229954;
+}
+
+.btn-danger {
+    background-color: var(--danger);
+    color: white;
+}
+
+.btn-danger:hover {
+    background-color: #c0392b;
+}
+
+.btn-block {
+    width: 100%;
+}
+
+.btn-small {
+    padding: 8px 12px;
+    font-size: 12px;
+}
+
+/* ======================================
+   ALERTAS (Mobile First)
+   ====================================== */
+
+.alert {
+    padding: 12px 16px;
+    border-radius: var(--radius);
+    margin-bottom: 16px;
+    font-size: 13px;
+    animation: slideDown 0.3s ease;
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.alert-success {
+    background-color: #d4edda;
+    border: 1px solid #c3e6cb;
+    color: #155724;
+}
+
+.alert-danger {
+    background-color: #f8d7da;
+    border: 1px solid #f5c6cb;
+    color: #721c24;
+}
+
+.alert-warning {
+    background-color: #fff3cd;
+    border: 1px solid #ffeaa7;
+    color: #856404;
+}
+
+.alert-info {
+    background-color: #d1ecf1;
+    border: 1px solid #bee5eb;
+    color: #0c5460;
+}
+
+/* ======================================
+   CARDS (Mobile First)
+   ====================================== */
+
+.card {
+    background: white;
+    border-radius: var(--radius);
+    border: 1px solid var(--light);
+    overflow: hidden;
+    margin-bottom: 16px;
+    transition: all 0.2s;
+}
+
+.card:hover {
+    box-shadow: var(--shadow);
+}
+
+.card-header {
+    background-color: var(--light);
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--border);
+    font-weight: 600;
+    color: var(--secondary);
+    font-size: 14px;
+}
+
+.card-body {
+    padding: 16px;
+}
+
+.card-footer {
+    background-color: var(--light);
+    padding: 12px 16px;
+    border-top: 1px solid var(--border);
+    text-align: right;
+}
+
+/* ======================================
+   DASHBOARD LAYOUT (Mobile First)
+   ====================================== */
+
+.dashboard-container {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 16px;
+    margin: 16px 0;
+}
+
+.sidebar {
+    background: white;
+    border-radius: var(--radius);
+    border: 1px solid var(--light);
+    padding: 16px;
+    box-shadow: var(--shadow);
+}
+
+.sidebar h3 {
+    font-size: 14px;
+    margin-bottom: 12px;
+    color: var(--secondary);
+}
+
+.sidebar-menu {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.sidebar-menu a {
+    display: block;
+    padding: 10px 12px;
+    color: var(--text);
+    text-decoration: none;
+    border-radius: var(--radius);
+    font-size: 13px;
+    transition: all 0.2s;
+    border-left: 3px solid transparent;
+}
+
+.sidebar-menu a:hover,
+.sidebar-menu a.active {
+    background-color: var(--light);
+    color: var(--primary);
+    border-left-color: var(--primary);
+    padding-left: 12px;
+}
+
+.main-content {
+    background: white;
+    border-radius: var(--radius);
+    padding: 16px;
+    box-shadow: var(--shadow);
+}
+
+/* Tablet */
+@media (min-width: 768px) {
+    .dashboard-container {
+        grid-template-columns: 200px 1fr;
+        gap: 20px;
+    }
+
+    .sidebar {
+        position: sticky;
+        top: 80px;
+        height: fit-content;
+    }
+
+    .main-content {
+        padding: 20px;
+    }
+}
+
+/* Desktop */
+@media (min-width: 1024px) {
+    .dashboard-container {
+        grid-template-columns: 250px 1fr;
+    }
+
+    .sidebar {
+        top: 100px;
+    }
+}
+
+/* ======================================
+   MAIN CONTENT (Mobile First)
+   ====================================== */
+
+.main-content h1 {
+    border-bottom: 2px solid var(--light);
+    padding-bottom: 12px;
+    margin-bottom: 16px;
+}
+
+/* ======================================
+   TABELAS (Mobile First)
+   ====================================== */
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 12px;
+    overflow-x: auto;
+    display: block;
+}
+
+.table thead {
+    background-color: var(--light);
+    border-bottom: 2px solid var(--border);
+    display: none;
+}
+
+/* Tablet */
+@media (min-width: 768px) {
+    .table thead {
+        display: table-header-group;
+    }
+}
+
+.table th {
+    padding: 12px;
+    text-align: left;
+    font-weight: 600;
+    color: var(--secondary);
+}
+
+.table td {
+    padding: 12px;
+    border-bottom: 1px solid var(--border);
+}
+
+.table tbody tr {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0;
+    margin-bottom: 16px;
+    border: 1px solid var(--light);
+    border-radius: var(--radius);
+    padding: 12px;
+    background: white;
+}
+
+/* Tablet */
+@media (min-width: 768px) {
+    .table tbody tr {
+        display: table-row;
+        margin-bottom: 0;
+        border: none;
+        padding: 0;
+        background: transparent;
+    }
+}
+
+.table tbody tr:hover {
+    background-color: #fafafa;
+}
+
+/* ======================================
+   AUTH PAGE (Mobile First)
+   ====================================== */
+
+.container-auth {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    background: linear-gradient(135deg, var(--secondary), var(--primary));
+    padding: 16px;
+}
+
+.auth-box {
+    background: white;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-lg);
+    padding: 24px 16px;
+    width: 100%;
+    max-width: 400px;
+}
+
+.auth-box h1 {
+    color: var(--secondary);
+    margin-bottom: 8px;
+    font-size: 22px;
+    text-align: center;
+}
+
+.auth-box .subtitle {
+    color: var(--muted);
+    text-align: center;
+    margin-bottom: 24px;
+    font-size: 12px;
+}
+
+.auth-footer {
+    margin-top: 24px;
+    text-align: center;
+    border-top: 1px solid var(--border);
+    padding-top: 16px;
+}
+
+.auth-footer p {
+    font-size: 12px;
+    color: var(--muted);
+    margin-bottom: 8px;
+}
+
+.auth-footer a {
+    color: var(--primary);
+    text-decoration: none;
+    font-weight: 600;
+}
+
+/* ======================================
+   LESSON PAGE (Mobile First)
+   ====================================== */
+
+.lesson-container {
+    max-width: 100%;
+    margin: 0 auto;
+    padding: 16px 0;
+}
+
+.lesson-content {
+    background: white;
+    border-radius: var(--radius);
+}
+
+.lesson-content h1 {
+    color: var(--secondary);
+    margin-bottom: 16px;
+    border-bottom: 2px solid var(--light);
+    padding-bottom: 12px;
+    font-size: 20px;
+}
+
+.lesson-content-body {
+    background: white;
+    padding: 16px;
+    border: 1px solid var(--light);
+    border-radius: var(--radius);
+    margin-bottom: 16px;
+    line-height: 1.8;
+    color: var(--text);
+}
+
+.lesson-content-body p {
+    margin-bottom: 12px;
+}
+
+.lesson-content-body h2 {
+    color: var(--secondary);
+    margin-top: 20px;
+    margin-bottom: 12px;
+    font-size: 16px;
+}
+
+.lesson-navigation {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    margin: 16px 0;
+}
+
+.lesson-navigation .btn {
+    font-size: 12px;
+    padding: 10px 12px;
+}
+
+/* ======================================
+   COURSE PAGE (Mobile First)
+   ====================================== */
+
+.course-header-detail {
+    background: white;
+    border: 1px solid var(--light);
+    border-radius: var(--radius);
+    padding: 16px;
+    margin-bottom: 16px;
+}
+
+.course-header-detail h1 {
+    color: var(--secondary);
+    margin-bottom: 8px;
+    font-size: 20px;
+}
+
+.lessons-list-course {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.lesson-item-course {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px;
+    border: 1px solid var(--light);
+    border-radius: var(--radius);
+    background: white;
+    transition: all 0.2s;
+    flex-wrap: wrap;
+}
+
+.lesson-item-course:hover {
+    background-color: #f9f9f9;
+    border-color: var(--primary);
+}
+
+.lesson-checkbox {
+    flex-shrink: 0;
+}
+
+.checkbox-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    border: 2px solid var(--border);
+    border-radius: 50%;
+    font-weight: 600;
+    color: var(--border);
+    font-size: 14px;
+}
+
+.checkbox-icon.completed {
+    background-color: var(--success);
+    border-color: var(--success);
+    color: white;
+}
+
+.lesson-info {
+    flex: 1;
+    min-width: 150px;
+}
+
+.lesson-info h4 {
+    color: var(--secondary);
+    margin: 0 0 4px 0;
+    font-size: 13px;
+}
+
+.lesson-info p {
+    color: var(--muted);
+    font-size: 11px;
+    margin: 0;
+}
+
+.lesson-item-course .btn {
+    flex-shrink: 0;
+    font-size: 11px;
+    padding: 6px 10px;
+}
+
+/* Tablet */
+@media (min-width: 768px) {
+    .lesson-item-course {
+        flex-wrap: nowrap;
+    }
+
+    .lesson-item-course .btn {
+        font-size: 12px;
+        padding: 8px 12px;
+    }
+}
+
+/* ======================================
+   COURSE CARDS (Mobile First)
+   ====================================== */
+
+.courses-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 12px;
+}
+
+.course-card {
+    background: white;
+    border-radius: var(--radius);
+    border: 1px solid var(--light);
+    overflow: hidden;
+    transition: all 0.2s;
+}
+
+.course-card:hover {
+    box-shadow: var(--shadow);
+    transform: translateY(-2px);
+}
+
+.course-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: start;
+    margin-bottom: 8px;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.course-header h3 {
+    color: var(--secondary);
+    font-size: 15px;
+    margin: 0;
+}
+
+.course-description {
+    color: var(--muted);
+    font-size: 12px;
+    margin: 8px 0;
+    line-height: 1.4;
+}
+
+.course-actions {
+    display: flex;
+    gap: 8px;
+    margin-top: 12px;
+    flex-wrap: wrap;
+}
+
+.course-actions .btn {
+    flex: 1;
+    min-width: 80px;
+    font-size: 11px;
+    padding: 8px 10px;
+}
+
+/* Tablet */
+@media (min-width: 768px) {
+    .courses-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 16px;
+    }
+
+    .course-header h3 {
+        font-size: 16px;
+    }
+
+    .course-actions .btn {
+        font-size: 12px;
+        padding: 10px 12px;
+    }
+}
+
+/* Desktop */
+@media (min-width: 1024px) {
+    .courses-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px;
+    }
+}
+
+/* ======================================
+   PROGRESS BAR (Mobile First)
+   ====================================== */
+
+.progress-bar {
+    width: 100%;
+    height: 24px;
+    background-color: var(--light);
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--primary), var(--primary-dark));
+    transition: width 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: 600;
+    font-size: 11px;
+}
+
+.progress-bar-small {
+    width: 100%;
+    height: 6px;
+    background-color: var(--light);
+    border-radius: 3px;
+    overflow: hidden;
+    margin-bottom: 4px;
+}
+
+.progress-bar-small .progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--success), #229954);
+}
+
+/* ======================================
+   STATS (Mobile First)
+   ====================================== */
+
+.stat-box {
+    background: white;
+    border: 1px solid var(--light);
+    padding: 16px;
+    border-radius: var(--radius);
+    text-align: center;
+    box-shadow: var(--shadow);
+}
+
+.stat-number {
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--primary);
+}
+
+.stat-label {
+    font-size: 11px;
+    color: var(--muted);
+    margin-top: 4px;
+}
+
+/* Tablet */
+@media (min-width: 768px) {
+    .stat-number {
+        font-size: 32px;
+    }
+
+    .stat-label {
+        font-size: 12px;
+    }
+}
+
+/* ======================================
+   COMMENTS (Mobile First)
+   ====================================== */
+
+.comments-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.comment-item {
+    border-left: 3px solid var(--primary);
+    padding-left: 12px;
+    padding-top: 8px;
+}
+
+.comment-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 6px;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.comment-header strong {
+    color: var(--secondary);
+    font-size: 13px;
+}
+
+.comment-date {
+    color: #95a5a6;
+    font-size: 10px;
+}
+
+.comment-text {
+    color: var(--text);
+    font-size: 12px;
+    margin: 0;
+    line-height: 1.5;
+}
+
+/* ======================================
+   UTILITIES (Mobile First)
+   ====================================== */
+
+.text-center { text-align: center; }
+.text-right { text-align: right; }
+.text-muted { color: var(--muted); }
+.text-primary { color: var(--primary); }
+.text-danger { color: var(--danger); }
+.text-success { color: var(--success); }
+
+.mt-8 { margin-top: 8px; }
+.mt-12 { margin-top: 12px; }
+.mt-16 { margin-top: 16px; }
+.mt-24 { margin-top: 24px; }
+
+.mb-8 { margin-bottom: 8px; }
+.mb-12 { margin-bottom: 12px; }
+.mb-16 { margin-bottom: 16px; }
+.mb-24 { margin-bottom: 24px; }
+.mb-30 { margin-bottom: 30px; }
+
+.p-12 { padding: 12px; }
+.p-16 { padding: 16px; }
+.p-24 { padding: 24px; }
+
+.gap-8 { gap: 8px; }
+.gap-12 { gap: 12px; }
+.gap-16 { gap: 16px; }
+
+.badge {
+    display: inline-block;
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 10px;
+    font-weight: 600;
+}
+
+.badge-success {
+    background-color: #d4edda;
+    color: #155724;
+}
+
+.badge-info {
+    background-color: #d1ecf1;
+    color: #0c5460;
+}
+
+/* ======================================
+   BREADCRUMB (Mobile First)
+   ====================================== */
+
+.breadcrumb {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    color: var(--muted);
+    margin: 12px 0 16px 0;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--light);
+    flex-wrap: wrap;
+}
+
+.breadcrumb a {
+    color: var(--primary);
+    text-decoration: none;
+}
+
+.breadcrumb a:hover {
+    text-decoration: underline;
+}
+
+.breadcrumb span {
+    color: var(--muted);
+}
+
+/* ======================================
+   MATERIALS LIST (Mobile First)
+   ====================================== */
+
+.materials-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.material-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px;
+    background: #f9f9f9;
+    border: 1px solid var(--light);
+    border-radius: var(--radius);
+    color: var(--primary);
+    text-decoration: none;
+    transition: all 0.2s;
+}
+
+.material-item:active {
+    background-color: #f0f8ff;
+    border-color: var(--primary);
+}
+
+@media (hover: hover) {
+    .material-item:hover {
+        background-color: #f0f8ff;
+        border-color: var(--primary);
+    }
+}
+
+.material-icon {
+    font-size: 20px;
+    flex-shrink: 0;
+}
+
+.material-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.material-name {
+    font-weight: 500;
+    font-size: 14px;
+    color: var(--text);
+    word-break: break-word;
+}
+
+.material-date {
+    color: var(--muted);
+    font-size: 12px;
+    margin-top: 4px;
+}
+
+.material-download {
+    color: var(--primary);
+    flex-shrink: 0;
+    font-weight: 600;
+}
+
+/* ======================================
+   LESSON NAVIGATION (Mobile First)
+   ====================================== */
+
+.lesson-nav {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin: 20px 0;
+}
+
+.lesson-nav .btn {
+    font-size: 13px;
+    padding: 12px 16px;
+    text-align: center;
+}
+
+/* Tablet */
+@media (min-width: 768px) {
+    .lesson-nav {
+        gap: 16px;
+        margin: 24px 0;
+    }
+
+    .lesson-nav .btn {
+        font-size: 14px;
+        padding: 14px 20px;
+    }
+}
+
+/* ======================================
+   COMMENTS SECTION (Mobile First)
+   ====================================== */
+
+.comment-form {
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--light);
+}
+
+.comment-form .form-group {
+    margin-bottom: 12px;
+}
+
+.comment-form textarea {
+    resize: vertical;
+    min-height: 80px;
+}
+
+.comments-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.comment-item {
+    padding: 12px 0 12px 12px;
+    border-left: 3px solid var(--primary);
+}
+
+.comment-author {
+    font-weight: 600;
+    color: var(--secondary);
+    font-size: 14px;
+    margin-bottom: 4px;
+}
+
+.comment-date {
+    color: var(--muted);
+    font-size: 12px;
+    margin-bottom: 8px;
+}
+
+.comment-text {
+    color: var(--text);
+    font-size: 13px;
+    margin: 0;
+    line-height: 1.6;
+    word-break: break-word;
+    white-space: pre-wrap;
+}
+
+/* Tablet */
+@media (min-width: 768px) {
+    .comment-item {
+        padding: 16px 0 16px 16px;
+    }
+
+    .comment-text {
+        font-size: 14px;
+    }
+}
+
+/* ======================================
+   FOOTER
+   ====================================== */
+
+footer {
+    background-color: var(--secondary);
+    color: white;
+    text-align: center;
+    padding: 16px;
+    margin-top: 24px;
+    font-size: 12px;
+}
+
+footer p {
+    margin: 4px 0;
+    color: white;
+}
+
+/* ======================================
+   PRINT STYLES
+   ====================================== */
+
+@media print {
+    .navbar, .sidebar, .btn, .form {
+        display: none;
+    }
+
+    body {
+        background: white;
+    }
+
+    .main-content {
+        box-shadow: none;
+        border: none;
+    }
+}
