@@ -137,8 +137,8 @@ $todosOsMateriais = getRows($conn,
                     <li><a href="/dashboard.php">📊 Dashboard</a></li>
                     <li><a href="/">🏠 Voltar ao Site</a></li>
                     
-                    <li style="margin-top: 20px; border-top: 1px solid #ecf0f1; padding-top: 15px;">
-                        <h4 style="color: #2c3e50; margin-bottom: 10px; font-size: 12px;">GERENCIAMENTO</h4>
+                    <li>
+                        <h4>GERENCIAMENTO</h4>
                     </li>
                     <li><a href="/admin/users.php">👥 Usuários</a></li>
                     <li><a href="/admin/courses.php">📚 Cursos</a></li>
@@ -168,7 +168,7 @@ $todosOsMateriais = getRows($conn,
                         <form method="POST" enctype="multipart/form-data" class="form">
                             <input type="hidden" name="acao" value="upload">
 
-                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                            <div>
                                 <div class="form-group">
                                     <label for="aula_id">Aula *</label>
                                     <select name="aula_id" id="aula_id" required>
@@ -190,7 +190,7 @@ $todosOsMateriais = getRows($conn,
                                         accept=".pdf"
                                         required
                                     >
-                                    <small style="color: #7f8c8d;">Máximo 50MB</small>
+                                    <small>Máximo 50MB</small>
                                 </div>
                             </div>
 
@@ -208,7 +208,7 @@ $todosOsMateriais = getRows($conn,
                     </div>
                     <div class="card-body">
                         <?php if (count($todosOsMateriais) > 0): ?>
-                            <div style="overflow-x: auto;">
+                            <div>
                                 <table class="table">
                                     <thead>
                                         <tr>
@@ -223,13 +223,13 @@ $todosOsMateriais = getRows($conn,
                                     <tbody>
                                         <?php foreach ($todosOsMateriais as $mat): ?>
                                             <tr>
-                                                <td style="font-size: 12px;">
+                                                <td>
                                                     <?php echo htmlspecialchars($mat['curso_titulo']); ?>
                                                 </td>
-                                                <td style="font-size: 12px;">
+                                                <td>
                                                     <?php echo htmlspecialchars($mat['modulo_titulo']); ?>
                                                 </td>
-                                                <td style="font-size: 12px;">
+                                                <td>
                                                     <strong><?php echo htmlspecialchars($mat['aula_titulo']); ?></strong>
                                                 </td>
                                                 <td>
@@ -237,7 +237,7 @@ $todosOsMateriais = getRows($conn,
                                                         📄 <?php echo htmlspecialchars($mat['titulo']); ?>
                                                     </a>
                                                 </td>
-                                                <td style="font-size: 12px;">
+                                                <td>
                                                     <?php echo (new DateTime($mat['created_at']))->format('d/m/Y H:i'); ?>
                                                 </td>
                                                 <td>
@@ -245,7 +245,7 @@ $todosOsMateriais = getRows($conn,
                                                         <a href="/uploads/materiais/<?php echo htmlspecialchars($mat['arquivo']); ?>" target="_blank" class="btn btn-secondary btn-small">
                                                             👁️ Ver
                                                         </a>
-                                                        <form method="POST" style="display: inline;">
+                                                        <form method="POST">
                                                             <input type="hidden" name="acao" value="deletar">
                                                             <input type="hidden" name="material_id" value="<?php echo $mat['id']; ?>">
                                                             <button type="submit" class="btn btn-danger btn-small" onclick="return confirm('Deletar material?')">
@@ -260,7 +260,7 @@ $todosOsMateriais = getRows($conn,
                                 </table>
                             </div>
                         <?php else: ?>
-                            <p class="text-muted text-center" style="padding: 40px 0;">
+                            <p class="text-muted text-center">
                                 Nenhum material enviado ainda.
                             </p>
                         <?php endif; ?>
@@ -268,7 +268,7 @@ $todosOsMateriais = getRows($conn,
                 </div>
 
                 <!-- Estatísticas -->
-                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px; margin-top: 30px;">
+                <div>
                     <div class="stat-box">
                         <div class="stat-number"><?php echo count($todosOsMateriais); ?></div>
                         <div class="stat-label">Materiais</div>
@@ -287,47 +287,8 @@ $todosOsMateriais = getRows($conn,
     </div>
 
     <!-- Footer -->
-    <footer style="background-color: #2c3e50; color: white; text-align: center; padding: 20px; margin-top: 50px;">
+    <footer class="footer">
         <p>&copy; 2024 NR1 EAD. Todos os direitos reservados.</p>
     </footer>
-
-    <style>
-        select {
-            padding: 8px 12px;
-            border: 1px solid #bdc3c7;
-            border-radius: 4px;
-            font-family: inherit;
-            font-size: 14px;
-            width: 100%;
-        }
-
-        input[type="file"] {
-            padding: 8px 12px;
-            border: 1px solid #bdc3c7;
-            border-radius: 4px;
-            width: 100%;
-        }
-
-        .stat-box {
-            background: white;
-            border: 1px solid #ecf0f1;
-            padding: 20px;
-            border-radius: 4px;
-            text-align: center;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-        }
-
-        .stat-number {
-            font-size: 32px;
-            font-weight: 700;
-            color: #3498db;
-        }
-
-        .stat-label {
-            font-size: 12px;
-            color: #7f8c8d;
-            margin-top: 8px;
-        }
-    </style>
 </body>
 </html>

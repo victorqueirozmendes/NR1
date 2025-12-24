@@ -122,8 +122,8 @@ $todosOsModulos = getRows($conn,
                     <li><a href="/dashboard.php">📊 Dashboard</a></li>
                     <li><a href="/">🏠 Voltar ao Site</a></li>
                     
-                    <li style="margin-top: 20px; border-top: 1px solid #ecf0f1; padding-top: 15px;">
-                        <h4 style="color: #2c3e50; margin-bottom: 10px; font-size: 12px;">GERENCIAMENTO</h4>
+                    <li>
+                        <h4>GERENCIAMENTO</h4>
                     </li>
                     <li><a href="/admin/users.php">👥 Usuários</a></li>
                     <li><a href="/admin/courses.php">📚 Cursos</a></li>
@@ -150,8 +150,8 @@ $todosOsModulos = getRows($conn,
                 <div class="card mb-30">
                     <div class="card-header">Selecionar Módulo</div>
                     <div class="card-body">
-                        <form method="GET" style="display: flex; gap: 10px; flex-wrap: wrap;">
-                            <select name="modulo_id" onchange="this.form.submit()" style="padding: 8px 12px; border: 1px solid #bdc3c7; border-radius: 4px; flex: 1; min-width: 200px;">
+                        <form method="GET">
+                            <select name="modulo_id" onchange="this.form.submit()">
                                 <option value="">-- Selecione um módulo --</option>
                                 <?php foreach ($todosOsModulos as $m): ?>
                                     <option value="<?php echo $m['id']; ?>" <?php echo $moduloId == $m['id'] ? 'selected' : ''; ?>>
@@ -181,7 +181,7 @@ $todosOsModulos = getRows($conn,
                                     <label>Módulo: <strong><?php echo htmlspecialchars($moduloAtual['titulo']); ?></strong></label>
                                 </div>
 
-                                <div style="display: grid; grid-template-columns: 1fr 100px; gap: 15px;">
+                                <div>
                                     <div class="form-group">
                                         <label for="titulo">Título da Aula *</label>
                                         <input 
@@ -215,12 +215,12 @@ $todosOsModulos = getRows($conn,
                                         rows="8"
                                         required
                                     ><?php echo htmlspecialchars($aulaEditando['conteudo'] ?? ''); ?></textarea>
-                                    <small style="color: #7f8c8d;">
+                                    <small>
                                         Você pode usar HTML básico: &lt;p&gt;, &lt;h2&gt;, &lt;strong&gt;, &lt;em&gt;, &lt;a&gt;, etc.
                                     </small>
                                 </div>
 
-                                <div style="display: flex; gap: 10px;">
+                                <div>
                                     <button type="submit" class="btn btn-primary">
                                         <?php echo $aulaEditando ? '💾 Atualizar' : '➕ Criar Aula'; ?>
                                     </button>
@@ -260,7 +260,7 @@ $todosOsModulos = getRows($conn,
                                                 <a href="?modulo_id=<?php echo $moduloId; ?>&editar=<?php echo $aula['id']; ?>" class="btn btn-warning btn-small">
                                                     ✏️ Editar
                                                 </a>
-                                                <form method="POST" style="display: inline;">
+                                                <form method="POST">
                                                     <input type="hidden" name="acao" value="deletar">
                                                     <input type="hidden" name="modulo_id" value="<?php echo $moduloId; ?>">
                                                     <input type="hidden" name="aula_id" value="<?php echo $aula['id']; ?>">
@@ -273,7 +273,7 @@ $todosOsModulos = getRows($conn,
                                     <?php endforeach; ?>
                                 </div>
                             <?php else: ?>
-                                <p class="text-muted text-center" style="padding: 40px 0;">
+                                <p class="text-muted text-center">
                                     Nenhuma aula criada neste módulo. Crie a primeira acima!
                                 </p>
                             <?php endif; ?>
@@ -289,64 +289,8 @@ $todosOsModulos = getRows($conn,
     </div>
 
     <!-- Footer -->
-    <footer style="background-color: #2c3e50; color: white; text-align: center; padding: 20px; margin-top: 50px;">
+    <footer class="footer">
         <p>&copy; 2024 NR1 EAD. Todos os direitos reservados.</p>
     </footer>
-
-    <style>
-        .lessons-list {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-        }
-
-        .lesson-item {
-            border: 1px solid #ecf0f1;
-            border-radius: 4px;
-            padding: 15px;
-            background: white;
-            transition: all 0.3s;
-        }
-
-        .lesson-item:hover {
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-            border-color: #3498db;
-        }
-
-        .lesson-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: start;
-            margin-bottom: 10px;
-            flex-wrap: wrap;
-            gap: 10px;
-        }
-
-        .lesson-number {
-            color: #3498db;
-            font-size: 12px;
-            font-weight: 600;
-            text-transform: uppercase;
-        }
-
-        .lesson-header h3 {
-            color: #2c3e50;
-            font-size: 16px;
-            margin: 5px 0 0 0;
-        }
-
-        .lesson-preview {
-            color: #7f8c8d;
-            font-size: 13px;
-            line-height: 1.4;
-            margin: 8px 0;
-        }
-
-        .lesson-actions {
-            display: flex;
-            gap: 8px;
-            flex-wrap: wrap;
-        }
-    </style>
 </body>
 </html>

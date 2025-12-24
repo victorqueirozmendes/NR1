@@ -105,7 +105,7 @@ $progressoPercentual = $totalAulas['total'] > 0
                 <h1>Bem-vindo, <?php echo htmlspecialchars($usuario['nome']); ?>!</h1>
 
                 <!-- Progresso Geral -->
-                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px; margin-bottom: 30px;">
+                <div>
                     <div class="stat-box">
                         <div class="stat-number"><?php echo count($cursosInscritos); ?></div>
                         <div class="stat-label">Cursos Inscritos</div>
@@ -129,9 +129,9 @@ $progressoPercentual = $totalAulas['total'] > 0
                     <div class="card-header">📊 Seu Progresso Geral</div>
                     <div class="card-body">
                         <div class="progress-bar">
-                            <div class="progress-fill" style="width: <?php echo $progressoPercentual; ?>%"></div>
+                            <div class="progress-fill"></div>
                         </div>
-                        <p style="text-align: center; margin-top: 10px; color: #7f8c8d;">
+                        <p>
                             Você completou <strong><?php echo $aulasCompletadas['total']; ?> de <?php echo $totalAulas['total']; ?></strong> aulas
                         </p>
                     </div>
@@ -177,9 +177,9 @@ $progressoPercentual = $totalAulas['total'] > 0
 
                                         <div class="course-progress">
                                             <div class="progress-bar-small">
-                                                <div class="progress-fill" style="width: <?php echo $progressoCurso; ?>%"></div>
+                                                <div class="progress-fill"></div>
                                             </div>
-                                            <small style="color: #7f8c8d;">
+                                            <small>
                                                 <?php echo $aulasConcluidasCurso['total']; ?>/<?php echo $totalAulasCurso['total']; ?> aulas
                                             </small>
                                         </div>
@@ -193,9 +193,9 @@ $progressoPercentual = $totalAulas['total'] > 0
                                 <?php endforeach; ?>
                             </div>
                         <?php else: ?>
-                            <p class="text-muted text-center" style="padding: 40px 0;">
+                            <p class="text-muted text-center">
                                 Você ainda não está inscrito em nenhum curso.<br>
-                                <a href="/student/courses.php" style="color: #3498db; text-decoration: none; font-weight: 600;">
+                                <a href="/student/courses.php">
                                     Explore cursos disponíveis →
                                 </a>
                             </p>
@@ -222,7 +222,7 @@ $progressoPercentual = $totalAulas['total'] > 0
                                 <?php endforeach; ?>
                             </div>
                             <?php if (count($cursosDisponiveis) > 3): ?>
-                                <p style="text-align: center; margin-top: 15px;">
+                                <p>
                                     <a href="/student/courses.php" class="text-primary">
                                         Ver todos os <?php echo count($cursosDisponiveis); ?> cursos →
                                     </a>
@@ -236,102 +236,8 @@ $progressoPercentual = $totalAulas['total'] > 0
     </div>
 
     <!-- Footer -->
-    <footer style="background-color: #2c3e50; color: white; text-align: center; padding: 20px; margin-top: 50px;">
+    <footer class="footer">
         <p>&copy; 2024 NR1 EAD. Todos os direitos reservados.</p>
     </footer>
-
-    <style>
-        .progress-bar {
-            width: 100%;
-            height: 30px;
-            background-color: #ecf0f1;
-            border-radius: 15px;
-            overflow: hidden;
-        }
-
-        .progress-fill {
-            height: 100%;
-            background: linear-gradient(90deg, #3498db, #2980b9);
-            transition: width 0.3s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-weight: 600;
-            font-size: 12px;
-        }
-
-        .progress-bar-small {
-            width: 100%;
-            height: 8px;
-            background-color: #ecf0f1;
-            border-radius: 4px;
-            overflow: hidden;
-            margin-bottom: 5px;
-        }
-
-        .progress-bar-small .progress-fill {
-            height: 100%;
-            background: linear-gradient(90deg, #27ae60, #229954);
-        }
-
-        .courses-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            gap: 20px;
-        }
-
-        .courses-grid-small {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 15px;
-        }
-
-        .course-card-small {
-            border: 1px solid #ecf0f1;
-            padding: 15px;
-            border-radius: 4px;
-            background: white;
-        }
-
-        .course-card-small h4 {
-            color: #2c3e50;
-            margin-bottom: 8px;
-            font-size: 14px;
-        }
-
-        .course-card-small p {
-            color: #7f8c8d;
-            font-size: 12px;
-            margin-bottom: 10px;
-        }
-
-        .course-progress {
-            margin-top: 15px;
-            padding-top: 15px;
-            border-top: 1px solid #ecf0f1;
-        }
-
-        .stat-box {
-            background: white;
-            border: 1px solid #ecf0f1;
-            padding: 20px;
-            border-radius: 4px;
-            text-align: center;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-        }
-
-        .stat-number {
-            font-size: 32px;
-            font-weight: 700;
-            color: #3498db;
-        }
-
-        .stat-label {
-            font-size: 12px;
-            color: #7f8c8d;
-            margin-top: 8px;
-        }
-    </style>
 </body>
 </html>

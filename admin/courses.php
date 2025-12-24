@@ -72,10 +72,6 @@ if (isset($_GET['editar'])) {
     <meta name="theme-color" content="#3498db">
     <title>Gerenciar Cursos - NR1 EAD</title>
     <link rel="stylesheet" href="/css/style-mobile-first.css">
-    <style>
-        .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
-        @media (max-width: 768px) { .form-grid { grid-template-columns: 1fr; } }
-    </style>
 </head>
 <body>
     <!-- Navbar -->
@@ -99,8 +95,8 @@ if (isset($_GET['editar'])) {
                     <li><a href="/dashboard.php">📊 Dashboard</a></li>
                     <li><a href="/">🏠 Voltar ao Site</a></li>
                     
-                    <li style="margin-top: 20px; border-top: 1px solid #ecf0f1; padding-top: 15px;">
-                        <h4 style="color: #2c3e50; margin-bottom: 10px; font-size: 12px;">GERENCIAMENTO</h4>
+                    <li>
+                        <h4>GERENCIAMENTO</h4>
                     </li>
                     <li><a href="/admin/users.php">👥 Usuários</a></li>
                     <li><a href="/admin/courses.php" class="active">📚 Cursos</a></li>
@@ -171,7 +167,7 @@ if (isset($_GET['editar'])) {
                                 ><?php echo htmlspecialchars($cursoEditando['descricao'] ?? ''); ?></textarea>
                             </div>
 
-                            <div style="display: flex; gap: 10px;">
+                            <div>
                                 <button type="submit" class="btn btn-primary">
                                     <?php echo $cursoEditando ? '💾 Atualizar' : '➕ Criar Curso'; ?>
                                 </button>
@@ -208,7 +204,7 @@ if (isset($_GET['editar'])) {
                                             </p>
                                         <?php endif; ?>
 
-                                        <p class="course-meta" style="font-size: 11px;">
+                                        <p class="course-meta">
                                             📅 <?php echo (new DateTime($curso['created_at']))->format('d/m/Y'); ?>
                                         </p>
 
@@ -219,7 +215,7 @@ if (isset($_GET['editar'])) {
                                             <a href="?editar=<?php echo $curso['id']; ?>" class="btn btn-warning btn-small">
                                                 ✏️ Editar
                                             </a>
-                                            <form method="POST" style="display: inline;">
+                                            <form method="POST">
                                                 <input type="hidden" name="acao" value="deletar">
                                                 <input type="hidden" name="curso_id" value="<?php echo $curso['id']; ?>">
                                                 <button type="submit" class="btn btn-danger btn-small" onclick="return confirm('Deletar? Seus módulos também serão deletados!')">
@@ -231,7 +227,7 @@ if (isset($_GET['editar'])) {
                                 <?php endforeach; ?>
                             </div>
                         <?php else: ?>
-                            <p class="text-muted text-center" style="padding: 40px 0;">
+                            <p class="text-muted text-center">
                                 Nenhum curso criado ainda. Crie o primeiro acima!
                             </p>
                         <?php endif; ?>
@@ -242,67 +238,8 @@ if (isset($_GET['editar'])) {
     </div>
 
     <!-- Footer -->
-    <footer style="background-color: #2c3e50; color: white; text-align: center; padding: 20px; margin-top: 50px;">
+    <footer class="footer">
         <p>&copy; 2024 NR1 EAD. Todos os direitos reservados.</p>
     </footer>
-
-    <style>
-        .courses-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 20px;
-        }
-
-        .course-card {
-            border: 1px solid #ecf0f1;
-            border-radius: 4px;
-            padding: 20px;
-            background: white;
-            transition: all 0.3s;
-        }
-
-        .course-card:hover {
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-            transform: translateY(-2px);
-        }
-
-        .course-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: start;
-            margin-bottom: 10px;
-        }
-
-        .course-header h3 {
-            color: #2c3e50;
-            font-size: 16px;
-            margin: 0;
-        }
-
-        .course-description {
-            color: #7f8c8d;
-            font-size: 13px;
-            margin: 10px 0;
-            line-height: 1.4;
-        }
-
-        .course-meta {
-            color: #95a5a6;
-            font-size: 12px;
-            margin: 8px 0;
-        }
-
-        .course-actions {
-            display: flex;
-            gap: 8px;
-            margin-top: 15px;
-            flex-wrap: wrap;
-        }
-
-        .course-actions .btn {
-            flex: 1;
-            min-width: 70px;
-        }
-    </style>
 </body>
 </html>

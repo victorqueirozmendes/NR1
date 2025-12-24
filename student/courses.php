@@ -96,7 +96,7 @@ $todosOsCursos = getRows($conn,
                     <div class="alert alert-success">✓ <?php echo htmlspecialchars($mensagem); ?></div>
                 <?php endif; ?>
 
-                <p style="color: #7f8c8d; margin-bottom: 30px;">
+                <p>
                     Descubra nossos cursos e comece a aprender. Clique em um curso para se inscrever.
                 </p>
 
@@ -149,7 +149,7 @@ $todosOsCursos = getRows($conn,
                                                 Continuar Estudando
                                             </a>
                                         <?php else: ?>
-                                            <form method="POST" style="width: 100%;">
+                                            <form method="POST">
                                                 <input type="hidden" name="curso_id" value="<?php echo $curso['id']; ?>">
                                                 <button type="submit" class="btn btn-success btn-block">
                                                     Inscrever-se
@@ -171,100 +171,8 @@ $todosOsCursos = getRows($conn,
     </div>
 
     <!-- Footer -->
-    <footer style="background-color: #2c3e50; color: white; text-align: center; padding: 20px; margin-top: 50px;">
+    <footer class="footer">
         <p>&copy; 2024 NR1 EAD. Todos os direitos reservados.</p>
     </footer>
-
-    <style>
-        .courses-grid-large {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 25px;
-        }
-
-        .course-card-large {
-            background: white;
-            border: 1px solid #ecf0f1;
-            border-radius: 4px;
-            overflow: hidden;
-            transition: all 0.3s;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .course-card-large:hover {
-            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
-            transform: translateY(-4px);
-        }
-
-        .course-thumbnail {
-            background: linear-gradient(135deg, #3498db, #2980b9);
-            height: 150px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-        }
-
-        .course-icon {
-            font-size: 48px;
-        }
-
-        .course-badge {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            background-color: #27ae60;
-            color: white;
-            padding: 6px 12px;
-            border-radius: 12px;
-            font-size: 11px;
-            font-weight: 600;
-        }
-
-        .course-body {
-            padding: 20px;
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .course-body h3 {
-            color: #2c3e50;
-            margin-bottom: 10px;
-            font-size: 16px;
-        }
-
-        .course-description {
-            color: #7f8c8d;
-            font-size: 13px;
-            line-height: 1.5;
-            margin-bottom: 15px;
-            flex: 1;
-        }
-
-        .course-info {
-            display: flex;
-            gap: 15px;
-            padding-bottom: 15px;
-            border-bottom: 1px solid #ecf0f1;
-            margin-bottom: 15px;
-        }
-
-        .course-info-item {
-            color: #7f8c8d;
-            font-size: 12px;
-        }
-
-        .course-footer {
-            display: flex;
-            gap: 10px;
-        }
-
-        .course-footer .btn {
-            flex: 1;
-            margin: 0;
-        }
-    </style>
 </body>
 </html>

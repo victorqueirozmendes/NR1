@@ -218,7 +218,7 @@ $aulaProxima = getRow($conn,
 
                 <!-- Botão Marcar Como Completa -->
                 <?php if (!$estaCompletada): ?>
-                    <form method="POST" style="margin-bottom: 30px;">
+                    <form method="POST" class="form">
                         <input type="hidden" name="acao" value="marcar_completa">
                         <button type="submit" class="btn btn-success btn-large">
                             ✓ Marcar Como Completa

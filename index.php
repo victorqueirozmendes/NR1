@@ -126,12 +126,12 @@ $mensagem = $_GET['mensagem'] ?? '';
         </div>
 
         <!-- CTA Section -->
-        <div style="background-color: #ecf0f1; padding: 40px; border-radius: 4px; text-align: center; margin: 50px 0;">
-            <h2 style="color: #2c3e50; margin-bottom: 15px;">Comece sua Jornada de Aprendizado Agora</h2>
-            <p style="color: #7f8c8d; margin-bottom: 20px;">
+        <div>
+            <h2>Comece sua Jornada de Aprendizado Agora</h2>
+            <p>
                 Junte-se a milhares de alunos e desenvolva novas habilidades.
             </p>
-            <a href="/register.php" class="btn btn-primary btn-block" style="max-width: 300px; margin: 0 auto;">
+            <a href="/register.php" class="btn btn-primary btn-block">
                 Criar Conta Gratuita
             </a>
         </div>
@@ -140,9 +140,9 @@ $mensagem = $_GET['mensagem'] ?? '';
     <!-- Footer -->
     <footer class="footer-simple">
         <p>&copy; 2024 NR1 EAD. Todos os direitos reservados.</p>
-        <p style="font-size: 12px; margin-top: 10px; color: #95a5a6;">
-            <a href="#" style="color: #3498db; text-decoration: none;">Política de Privacidade</a> | 
-            <a href="#" style="color: #3498db; text-decoration: none;">Termos de Serviço</a>
+        <p>
+            <a href="#">Política de Privacidade</a> | 
+            <a href="#">Termos de Serviço</a>
         </p>
     </footer>
 </body>

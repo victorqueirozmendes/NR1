@@ -73,8 +73,8 @@ $usuariosAprovados = getUsuariosAprovados();
                 <ul class="sidebar-menu">
                     <li><a href="/dashboard.php">Meu Dashboard</a></li>
                     <li><a href="/">Voltar ao inicio</a></li>
-                    <li style="margin-top: 20px; border-top: 1px solid #ecf0f1; padding-top: 15px;">
-                        <h4 style="color: #2c3e50; margin-bottom: 10px; font-size: 12px;">ADMINISTRAÇÃO</h4>
+                    <li>
+                        <h4>ADMINISTRAÇÃO</h4>
                     </li>
                     <li><a href="/admin/usuarios.php" class="active">👥 Gerenciar Usuários</a></li>
                     <li><a href="/admin/cursos.php">📚 Gerenciar Cursos</a></li>
@@ -101,13 +101,13 @@ $usuariosAprovados = getUsuariosAprovados();
                 <div class="card mb-30">
                     <div class="card-header">
                         ⏳ Usuários Pendentes de Aprovação
-                        <span style="float: right; font-weight: normal;">
+                        <span>
                             <?php echo count($usuariosPendentes) > 0 ? count($usuariosPendentes) . ' pendente(s)' : ''; ?>
                         </span>
                     </div>
                     <div class="card-body">
                         <?php if (count($usuariosPendentes) > 0): ?>
-                            <div style="overflow-x: auto;">
+                            <div>
                                 <table class="table">
                                     <thead>
                                         <tr>
@@ -132,14 +132,14 @@ $usuariosAprovados = getUsuariosAprovados();
                                                 </td>
                                                 <td>
                                                     <div class="table-actions">
-                                                        <form method="POST" style="display: inline;">
+                                                        <form method="POST">
                                                             <input type="hidden" name="acao" value="aprovar">
                                                             <input type="hidden" name="usuario_id" value="<?php echo htmlspecialchars($usr['id']); ?>">
                                                             <button type="submit" class="btn btn-success btn-small" onclick="return confirm('Aprovar este usuário?')">
                                                                 ✓ Aprovar
                                                             </button>
                                                         </form>
-                                                        <form method="POST" style="display: inline;">
+                                                        <form method="POST">
                                                             <input type="hidden" name="acao" value="rejeitar">
                                                             <input type="hidden" name="usuario_id" value="<?php echo htmlspecialchars($usr['id']); ?>">
                                                             <button type="submit" class="btn btn-danger btn-small" onclick="return confirm('Rejeitar este usuário? Essa ação não pode ser desfeita.')">
@@ -154,7 +154,7 @@ $usuariosAprovados = getUsuariosAprovados();
                                 </table>
                             </div>
                         <?php else: ?>
-                            <p class="text-muted text-center" style="padding: 20px 0;">
+                            <p class="text-muted text-center">
                                 ✓ Nenhum usuário pendente de aprovação.
                             </p>
                         <?php endif; ?>
@@ -165,13 +165,13 @@ $usuariosAprovados = getUsuariosAprovados();
                 <div class="card">
                     <div class="card-header">
                         ✓ Usuários Aprovados
-                        <span style="float: right; font-weight: normal;">
+                        <span>
                             <?php echo count($usuariosAprovados); ?> usuário(s)
                         </span>
                     </div>
                     <div class="card-body">
                         <?php if (count($usuariosAprovados) > 0): ?>
-                            <div style="overflow-x: auto;">
+                            <div>
                                 <table class="table">
                                     <thead>
                                         <tr>
@@ -211,7 +211,7 @@ $usuariosAprovados = getUsuariosAprovados();
                                 </table>
                             </div>
                         <?php else: ?>
-                            <p class="text-muted text-center" style="padding: 20px 0;">
+                            <p class="text-muted text-center">
                                 Nenhum usuário aprovado ainda.
                             </p>
                         <?php endif; ?>
@@ -222,7 +222,7 @@ $usuariosAprovados = getUsuariosAprovados();
     </div>
 
     <!-- Footer -->
-    <footer style="background-color: #2c3e50; color: white; text-align: center; padding: 20px; margin-top: 50px;">
+    <footer class="footer">
         <p>&copy; 2024 NR1 EAD. Todos os direitos reservados.</p>
     </footer>
 </body>

@@ -118,8 +118,8 @@ $todosOsCursos = getRows($conn, 'SELECT id, titulo FROM cursos ORDER BY titulo A
                     <li><a href="/dashboard.php">📊 Dashboard</a></li>
                     <li><a href="/">🏠 Voltar ao Site</a></li>
                     
-                    <li style="margin-top: 20px; border-top: 1px solid #ecf0f1; padding-top: 15px;">
-                        <h4 style="color: #2c3e50; margin-bottom: 10px; font-size: 12px;">GERENCIAMENTO</h4>
+                    <li>
+                        <h4>GERENCIAMENTO</h4>
                     </li>
                     <li><a href="/admin/users.php">👥 Usuários</a></li>
                     <li><a href="/admin/courses.php">📚 Cursos</a></li>
@@ -146,8 +146,8 @@ $todosOsCursos = getRows($conn, 'SELECT id, titulo FROM cursos ORDER BY titulo A
                 <div class="card mb-30">
                     <div class="card-header">Selecionar Curso</div>
                     <div class="card-body">
-                        <form method="GET" style="display: flex; gap: 10px; flex-wrap: wrap;">
-                            <select name="curso_id" onchange="this.form.submit()" style="padding: 8px 12px; border: 1px solid #bdc3c7; border-radius: 4px; flex: 1; min-width: 200px;">
+                        <form method="GET">
+                            <select name="curso_id" onchange="this.form.submit()">
                                 <?php foreach ($todosOsCursos as $c): ?>
                                     <option value="<?php echo $c['id']; ?>" <?php echo $cursoId == $c['id'] ? 'selected' : ''; ?>>
                                         <?php echo htmlspecialchars($c['titulo']); ?>
@@ -176,7 +176,7 @@ $todosOsCursos = getRows($conn, 'SELECT id, titulo FROM cursos ORDER BY titulo A
                                     <label>Curso: <strong><?php echo htmlspecialchars($cursoAtual['titulo']); ?></strong></label>
                                 </div>
 
-                                <div style="display: grid; grid-template-columns: 1fr 100px; gap: 15px;">
+                                <div>
                                     <div class="form-group">
                                         <label for="titulo">Título do Módulo *</label>
                                         <input 
@@ -211,7 +211,7 @@ $todosOsCursos = getRows($conn, 'SELECT id, titulo FROM cursos ORDER BY titulo A
                                     ><?php echo htmlspecialchars($moduloEditando['descricao'] ?? ''); ?></textarea>
                                 </div>
 
-                                <div style="display: flex; gap: 10px;">
+                                <div>
                                     <button type="submit" class="btn btn-primary">
                                         <?php echo $moduloEditando ? '💾 Atualizar' : '➕ Criar Módulo'; ?>
                                     </button>
@@ -250,7 +250,7 @@ $todosOsCursos = getRows($conn, 'SELECT id, titulo FROM cursos ORDER BY titulo A
                                                 </td>
                                                 <td>
                                                     <strong><?php echo htmlspecialchars($mod['titulo']); ?></strong><br>
-                                                    <small style="color: #7f8c8d;">
+                                                    <small>
                                                         <?php echo htmlspecialchars(substr($mod['descricao'], 0, 50)); ?>
                                                     </small>
                                                 </td>
@@ -259,7 +259,7 @@ $todosOsCursos = getRows($conn, 'SELECT id, titulo FROM cursos ORDER BY titulo A
                                                         <?php echo $countAulas['total']; ?> aula(s)
                                                     </span>
                                                 </td>
-                                                <td style="font-size: 12px;">
+                                                <td>
                                                     <?php echo (new DateTime($mod['created_at']))->format('d/m/Y'); ?>
                                                 </td>
                                                 <td>
@@ -270,7 +270,7 @@ $todosOsCursos = getRows($conn, 'SELECT id, titulo FROM cursos ORDER BY titulo A
                                                         <a href="?curso_id=<?php echo $cursoId; ?>&editar=<?php echo $mod['id']; ?>" class="btn btn-warning btn-small">
                                                             ✏️ Editar
                                                         </a>
-                                                        <form method="POST" style="display: inline;">
+                                                        <form method="POST">
                                                             <input type="hidden" name="acao" value="deletar">
                                                             <input type="hidden" name="curso_id" value="<?php echo $cursoId; ?>">
                                                             <input type="hidden" name="modulo_id" value="<?php echo $mod['id']; ?>">
@@ -285,7 +285,7 @@ $todosOsCursos = getRows($conn, 'SELECT id, titulo FROM cursos ORDER BY titulo A
                                     </tbody>
                                 </table>
                             <?php else: ?>
-                                <p class="text-muted text-center" style="padding: 40px 0;">
+                                <p class="text-muted text-center">
                                     Nenhum módulo criado neste curso. Crie o primeiro acima!
                                 </p>
                             <?php endif; ?>
@@ -301,7 +301,7 @@ $todosOsCursos = getRows($conn, 'SELECT id, titulo FROM cursos ORDER BY titulo A
     </div>
 
     <!-- Footer -->
-    <footer style="background-color: #2c3e50; color: white; text-align: center; padding: 20px; margin-top: 50px;">
+    <footer class="footer">
         <p>&copy; 2024 NR1 EAD. Todos os direitos reservados.</p>
     </footer>
 </body>

@@ -100,8 +100,8 @@ if ($filtro === 'pendentes') {
                     <li><a href="/dashboard.php">📊 Dashboard</a></li>
                     <li><a href="/">🏠 Voltar ao Site</a></li>
                     
-                    <li style="margin-top: 20px; border-top: 1px solid #ecf0f1; padding-top: 15px;">
-                        <h4 style="color: #2c3e50; margin-bottom: 10px; font-size: 12px;">GERENCIAMENTO</h4>
+                    <li>
+                        <h4>GERENCIAMENTO</h4>
                     </li>
                     <li><a href="/admin/users.php" class="active">👥 Usuários</a></li>
                     <li><a href="/admin/courses.php">📚 Cursos</a></li>
@@ -129,7 +129,7 @@ if ($filtro === 'pendentes') {
                 <?php endif; ?>
 
                 <!-- Abas de Filtro -->
-                <div class="filter-tabs" style="margin-bottom: 20px;">
+                <div class="filter-tabs">
                     <a href="?filtro=pendentes" class="tab-btn <?php echo $filtro === 'pendentes' ? 'active' : ''; ?>">
                         ⏳ Pendentes
                     </a>
@@ -142,7 +142,7 @@ if ($filtro === 'pendentes') {
                 </div>
 
                 <!-- Estatísticas -->
-                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px; margin-bottom: 30px;">
+                <div>
                     <div class="stat-box">
                         <div class="stat-number"><?php echo count(getUsuariosPendentes()); ?></div>
                         <div class="stat-label">Pendentes</div>
@@ -164,7 +164,7 @@ if ($filtro === 'pendentes') {
                     </div>
                     <div class="card-body">
                         <?php if (count($usuarios) > 0): ?>
-                            <div style="overflow-x: auto;">
+                            <div>
                                 <table class="table">
                                     <thead>
                                         <tr>
@@ -199,24 +199,24 @@ if ($filtro === 'pendentes') {
                                                         <span class="badge badge-warning">⏳ Pendente</span>
                                                     <?php endif; ?>
                                                 </td>
-                                                <td style="font-size: 12px;">
+                                                <td>
                                                     <?php 
                                                         $data = new DateTime($usr['created_at']);
                                                         echo $data->format('d/m/Y H:i');
                                                     ?>
                                                 </td>
                                                 <td>
-                                                    <div class="table-actions" style="flex-wrap: wrap;">
+                                                    <div class="table-actions">
                                                         <!-- Se pendente: Aprovar/Rejeitar -->
                                                         <?php if ($usr['ativo'] == 0): ?>
-                                                            <form method="POST" style="display: inline;">
+                                                            <form method="POST">
                                                                 <input type="hidden" name="acao" value="aprovar">
                                                                 <input type="hidden" name="usuario_id" value="<?php echo htmlspecialchars($usr['id']); ?>">
                                                                 <button type="submit" class="btn btn-success btn-small" onclick="return confirm('Aprovar este usuário?')">
                                                                     ✓ Aprovar
                                                                 </button>
                                                             </form>
-                                                            <form method="POST" style="display: inline;">
+                                                            <form method="POST">
                                                                 <input type="hidden" name="acao" value="rejeitar">
                                                                 <input type="hidden" name="usuario_id" value="<?php echo htmlspecialchars($usr['id']); ?>">
                                                                 <button type="submit" class="btn btn-danger btn-small" onclick="return confirm('Rejeitar? Não pode desfazer!')">
@@ -228,7 +228,7 @@ if ($filtro === 'pendentes') {
                                                         <!-- Se ativo: Promover/Rebaixar -->
                                                         <?php if ($usr['ativo'] == 1 && $usr['id'] != $usuario['id']): ?>
                                                             <?php if ($usr['role'] === 'aluno'): ?>
-                                                                <form method="POST" style="display: inline;">
+                                                                <form method="POST">
                                                                     <input type="hidden" name="acao" value="promover">
                                                                     <input type="hidden" name="usuario_id" value="<?php echo htmlspecialchars($usr['id']); ?>">
                                                                     <button type="submit" class="btn btn-warning btn-small" onclick="return confirm('Promover a admin?')">
@@ -236,7 +236,7 @@ if ($filtro === 'pendentes') {
                                                                     </button>
                                                                 </form>
                                                             <?php else: ?>
-                                                                <form method="POST" style="display: inline;">
+                                                                <form method="POST">
                                                                     <input type="hidden" name="acao" value="rebaixar">
                                                                     <input type="hidden" name="usuario_id" value="<?php echo htmlspecialchars($usr['id']); ?>">
                                                                     <button type="submit" class="btn btn-warning btn-small" onclick="return confirm('Rebaixar para aluno?')">
@@ -253,7 +253,7 @@ if ($filtro === 'pendentes') {
                                 </table>
                             </div>
                         <?php else: ?>
-                            <p class="text-muted text-center" style="padding: 40px 0;">
+                            <p class="text-muted text-center">
                                 Nenhum usuário nesta categoria.
                             </p>
                         <?php endif; ?>
@@ -263,57 +263,8 @@ if ($filtro === 'pendentes') {
         </div>
     </div>
 
-    <!-- Footer -->
-    <footer style="background-color: #2c3e50; color: white; text-align: center; padding: 20px; margin-top: 50px;">
+    <footer class="footer">
         <p>&copy; 2024 NR1 EAD. Todos os direitos reservados.</p>
     </footer>
-
-    <style>
-        .filter-tabs {
-            display: flex;
-            gap: 10px;
-            border-bottom: 2px solid #ecf0f1;
-        }
-
-        .tab-btn {
-            padding: 10px 20px;
-            background: none;
-            border: none;
-            border-bottom: 3px solid transparent;
-            cursor: pointer;
-            font-weight: 600;
-            color: #7f8c8d;
-            transition: all 0.3s;
-            text-decoration: none;
-            display: inline-block;
-        }
-
-        .tab-btn:hover,
-        .tab-btn.active {
-            color: #3498db;
-            border-bottom-color: #3498db;
-        }
-
-        .stat-box {
-            background: white;
-            border: 1px solid #ecf0f1;
-            padding: 20px;
-            border-radius: 4px;
-            text-align: center;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-        }
-
-        .stat-number {
-            font-size: 32px;
-            font-weight: 700;
-            color: #3498db;
-        }
-
-        .stat-label {
-            font-size: 12px;
-            color: #7f8c8d;
-            margin-top: 8px;
-        }
-    </style>
 </body>
 </html>

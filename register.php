@@ -62,8 +62,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <?php if ($sucesso): ?>
                 <div class="alert alert-success">
                     <?php echo htmlspecialchars($sucesso); ?>
-                    <p style="margin-top: 10px;">
-                        <a href="/login.php" style="color: inherit; text-decoration: underline;">
+                    <p>
+                        <a href="/login.php">
                             Faça login aqui
                         </a>
                     </p>

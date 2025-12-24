@@ -94,12 +94,12 @@ $progressoPercentual = $totalAulas['total'] > 0
                 <ul class="sidebar-menu">
                     <li><a href="/student/dashboard.php">📊 Dashboard</a></li>
                     <li><a href="/student/courses.php">📚 Explorar Cursos</a></li>
-                    <li style="margin-top: 20px; border-top: 1px solid #ecf0f1; padding-top: 15px;">
-                        <h4 style="color: #2c3e50; margin-bottom: 10px; font-size: 12px;">MÓDULOS</h4>
+                    <li>
+                        <h4>MÓDULOS</h4>
                     </li>
                     <?php foreach ($modulos as $mod): ?>
                         <li>
-                            <a href="#modulo-<?php echo $mod['id']; ?>" style="font-size: 12px;">
+                            <a href="#modulo-<?php echo $mod['id']; ?>">
                                 📋 <?php echo htmlspecialchars(substr($mod['titulo'], 0, 25)); ?>
                             </a>
                         </li>
@@ -112,20 +112,20 @@ $progressoPercentual = $totalAulas['total'] > 0
                 <!-- Header do Curso -->
                 <div class="course-header-detail">
                     <h1><?php echo htmlspecialchars($curso['titulo']); ?></h1>
-                    <p style="color: #7f8c8d; margin-bottom: 20px;">
+                    <p>
                         <?php echo htmlspecialchars($curso['descricao']); ?>
                     </p>
                     
-                    <div style="display: grid; grid-template-columns: auto auto auto; gap: 20px; margin-bottom: 20px;">
-                        <div class="stat-box" style="min-width: 150px;">
+                    <div>
+                        <div class="stat-box">
                             <div class="stat-number"><?php echo count($modulos); ?></div>
                             <div class="stat-label">Módulos</div>
                         </div>
-                        <div class="stat-box" style="min-width: 150px;">
+                        <div class="stat-box">
                             <div class="stat-number"><?php echo $totalAulas['total']; ?></div>
                             <div class="stat-label">Aulas</div>
                         </div>
-                        <div class="stat-box" style="min-width: 150px;">
+                        <div class="stat-box">
                             <div class="stat-number"><?php echo $progressoPercentual; ?>%</div>
                             <div class="stat-label">Progresso</div>
                         </div>
@@ -133,7 +133,7 @@ $progressoPercentual = $totalAulas['total'] > 0
 
                     <!-- Barra de Progresso -->
                     <div class="progress-bar">
-                        <div class="progress-fill" style="width: <?php echo $progressoPercentual; ?>%"></div>
+                        <div class="progress-fill"></div>
                     </div>
                 </div>
 
@@ -147,14 +147,14 @@ $progressoPercentual = $totalAulas['total'] > 0
                     <div class="card mb-30" id="modulo-<?php echo $modulo['id']; ?>">
                         <div class="card-header">
                             📋 <?php echo htmlspecialchars($modulo['titulo']); ?>
-                            <span style="float: right; font-weight: normal; font-size: 12px;">
+                            <span>
                                 <?php echo count($aulas); ?> aula(s)
                             </span>
                         </div>
                         
                         <?php if (!empty($modulo['descricao'])): ?>
-                            <div class="card-body" style="padding-bottom: 0; border-bottom: 1px solid #ecf0f1;">
-                                <p style="color: #7f8c8d; font-size: 13px;">
+                            <div class="card-body">
+                                <p>
                                     <?php echo htmlspecialchars($modulo['descricao']); ?>
                                 </p>
                             </div>
@@ -201,137 +201,8 @@ $progressoPercentual = $totalAulas['total'] > 0
     </div>
 
     <!-- Footer -->
-    <footer style="background-color: #2c3e50; color: white; text-align: center; padding: 20px; margin-top: 50px;">
+    <footer class="footer">
         <p>&copy; 2024 NR1 EAD. Todos os direitos reservados.</p>
     </footer>
-
-    <style>
-        .course-header-detail {
-            background: white;
-            border: 1px solid #ecf0f1;
-            border-radius: 4px;
-            padding: 30px;
-            margin-bottom: 30px;
-        }
-
-        .course-header-detail h1 {
-            color: #2c3e50;
-            margin-bottom: 10px;
-        }
-
-        .progress-bar {
-            width: 100%;
-            height: 30px;
-            background-color: #ecf0f1;
-            border-radius: 15px;
-            overflow: hidden;
-        }
-
-        .progress-fill {
-            height: 100%;
-            background: linear-gradient(90deg, #3498db, #2980b9);
-            transition: width 0.3s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-weight: 600;
-            font-size: 12px;
-        }
-
-        .lessons-list-course {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-
-        .lesson-item-course {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            padding: 15px;
-            border: 1px solid #ecf0f1;
-            border-radius: 4px;
-            background: white;
-            transition: all 0.3s;
-        }
-
-        .lesson-item-course:hover {
-            background-color: #f9f9f9;
-            border-color: #3498db;
-        }
-
-        .lesson-item-course.completed {
-            opacity: 0.7;
-            background-color: #f0f9f7;
-        }
-
-        .lesson-checkbox {
-            flex-shrink: 0;
-        }
-
-        .checkbox-icon {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            width: 24px;
-            height: 24px;
-            border: 2px solid #bdc3c7;
-            border-radius: 50%;
-            font-weight: 600;
-            color: #bdc3c7;
-            font-size: 14px;
-        }
-
-        .checkbox-icon.completed {
-            background-color: #27ae60;
-            border-color: #27ae60;
-            color: white;
-        }
-
-        .lesson-info {
-            flex: 1;
-        }
-
-        .lesson-info h4 {
-            color: #2c3e50;
-            margin: 0 0 5px 0;
-            font-size: 14px;
-        }
-
-        .lesson-info p {
-            color: #7f8c8d;
-            font-size: 12px;
-            margin: 0;
-        }
-
-        .lesson-item-course .btn {
-            flex-shrink: 0;
-        }
-
-        .stat-box {
-            background: white;
-            border: 1px solid #ecf0f1;
-            padding: 15px;
-            border-radius: 4px;
-            text-align: center;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-        }
-
-        .stat-number {
-            font-size: 28px;
-            font-weight: 700;
-            color: #3498db;
-        }
-
-        .stat-label {
-            font-size: 11px;
-            color: #7f8c8d;
-            margin-top: 5px;
-        }
-    </style>
 </body>
 </html>

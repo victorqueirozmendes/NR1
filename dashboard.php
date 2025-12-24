@@ -52,8 +52,8 @@ if ($ehAdmin) {
                     <li><a href="/">Voltar ao inicio</a></li>
                     
                     <?php if ($ehAdmin): ?>
-                        <li style="margin-top: 20px; border-top: 1px solid #ecf0f1; padding-top: 15px;">
-                            <h4 style="color: #2c3e50; margin-bottom: 10px; font-size: 12px;">ADMINISTRAÇÃO</h4>
+                        <li>
+                            <h4>ADMINISTRAÇÃO</h4>
                         </li>
                         <li><a href="/admin/usuarios.php">👥 Gerenciar Usuários</a></li>
                         <li><a href="/admin/cursos.php">📚 Gerenciar Cursos</a></li>
@@ -82,7 +82,7 @@ if ($ehAdmin) {
                     <div class="card-body">
                         <table class="table">
                             <tr>
-                                <td style="width: 30%;"><strong>Nome:</strong></td>
+                                <td><strong>Nome:</strong></td>
                                 <td><?php echo htmlspecialchars($usuario['nome']); ?></td>
                             </tr>
                             <tr>
@@ -128,7 +128,7 @@ if ($ehAdmin) {
                         📚 Meus Cursos
                     </div>
                     <div class="card-body">
-                        <p class="text-muted text-center" style="padding: 20px 0;">
+                        <p class="text-muted text-center">
                             Nenhum curso disponível no momento.
                         </p>
                     </div>
@@ -141,10 +141,10 @@ if ($ehAdmin) {
                             ⚙️ Painel Administrativo
                         </div>
                         <div class="card-body">
-                            <p style="margin-bottom: 15px;">
+                            <p>
                                 Você tem acesso às seguintes ferramentas administrativas:
                             </p>
-                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                            <div>
                                 <a href="/admin/usuarios.php" class="btn btn-secondary btn-block">
                                     👥 Gerenciar Usuários
                                 </a>
@@ -160,7 +160,7 @@ if ($ehAdmin) {
     </div>
 
     <!-- Footer -->
-    <footer style="background-color: #2c3e50; color: white; text-align: center; padding: 20px; margin-top: 50px;">
+    <footer>
         <p>&copy; 2024 NR1 EAD. Todos os direitos reservados.</p>
     </footer>
 </body>
