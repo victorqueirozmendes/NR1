@@ -73,23 +73,66 @@ function getQueryResult($conn, $sql, $params = []) {
    UMA LINHA
 ========================= */
 function getRow($conn, $sql, $params = []) {
-    $result = getQueryResult($conn, $sql, $params);
-    if (!$result) return false;
-    return $result->fetch_assoc();
+    try {
+        $result = getQueryResult($conn, $sql, $params);
+        if (!$result) return null;
+        $row = $result->fetch_assoc();
+        $result->free();
+        return $row;
+    } catch (Exception $e) {
+        error_log("❌ Erro ao obter linha: " . $e->getMessage());
+        return null;
+    }
 }
 
 /* =========================
    VÁRIAS LINHAS
 ========================= */
 function getRows($conn, $sql, $params = []) {
-    $result = getQueryResult($conn, $sql, $params);
-    if (!$result) return []; // Sempre retornar array vazio, nunca false
+    try {
+        $result = getQueryResult($conn, $sql, $params);
+        if (!$result) return [];
 
-    $rows = [];
-    while ($row = $result->fetch_assoc()) {
-        $rows[] = $row;
+        $rows = [];
+        while ($row = $result->fetch_assoc()) {
+            $rows[] = $row;
+        }
+        $result->free();
+        return $rows;
+    } catch (Exception $e) {
+        error_log("❌ Erro ao obter linhas: " . $e->getMessage());
+        return [];
     }
-    return $rows;
+}
+
+/* =========================
+   CONTAR REGISTROS
+========================= */
+function getCount($conn, $sql, $params = []) {
+    try {
+        $row = getRow($conn, $sql, $params);
+        if (!$row) return 0;
+        
+        $count = current($row);
+        return (int) $count;
+    } catch (Exception $e) {
+        error_log("❌ Erro ao contar: " . $e->getMessage());
+        return 0;
+    }
+}
+
+/* =========================
+   INSERIR E OBTER ID
+========================= */
+function insertAndGetId($conn, $sql, $params = []) {
+    try {
+        $stmt = executeQuery($conn, $sql, $params);
+        if (!$stmt) return false;
+        return $conn->insert_id;
+    } catch (Exception $e) {
+        error_log("❌ Erro ao inserir: " . $e->getMessage());
+        return false;
+    }
 }
 
 /* =========================

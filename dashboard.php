@@ -5,31 +5,21 @@ require_once __DIR__ . '/includes/db.php';
 verificarLogin();
 
 $usuario = getUsuarioLogado();
-if (!$usuario) {
-    header('Location: /login.php');
-    exit;
-}
 $ehAdmin = ehAdmin();
-
-// Se é admin, adicionar link para gerenciamento
-$adminPanel = '';
-if ($ehAdmin) {
-    $adminPanel = 'admin/usuarios.php';
-}
-
 ?>
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
-    <meta name="description" content="Dashboard - NR1 EAD">
-    <meta name="theme-color" content="#3498db">
-    <title>Dashboard - NR1 EAD</title>
-    <link rel="stylesheet" href="/css/style-mobile-first.css">
+<meta charset="UTF-8">
+<title>Dashboard - NR1</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="/css/style-mobile-first.css?v=2025122419">
 </head>
+
 <body>
-    <!-- Navbar -->
+
+<!-- NAVBAR -->
     <nav class="navbar">
         <a href="/" class="navbar-brand">NR1 EAD</a>
         <div class="navbar-menu">
@@ -38,127 +28,103 @@ if ($ehAdmin) {
         </div>
     </nav>
 
-    <!-- Container Principal -->
-    <div class="container">
-        <div class="dashboard-container">
-            <!-- Sidebar -->
-            <aside class="sidebar">
-                <h3>📋 Menu</h3>
-                <ul class="sidebar-menu">
-                    <li><a href="/dashboard.php" class="active">Meu Dashboard</a></li>
-                    <li><a href="/">Voltar ao inicio</a></li>
-                    
-                    <?php if ($ehAdmin): ?>
-                        <li>
-                            <h4>ADMINISTRAÇÃO</h4>
-                        </li>
-                        <li><a href="/admin/usuarios.php">👥 Gerenciar Usuários</a></li>
-                        <li><a href="/admin/cursos.php">📚 Gerenciar Cursos</a></li>
-                    <?php endif; ?>
-                </ul>
-            </aside>
+<div class="container">
+<div class="dashboard-container">
 
-            <!-- Conteúdo Principal -->
-            <main class="main-content">
-                <h1>Dashboard</h1>
-                
-                <div class="alert alert-info">
-                    Olá <?php echo htmlspecialchars($usuario['nome']); ?>! 
-                    <?php if ($usuario['role'] === 'admin'): ?>
-                        Você está logado como <strong>Administrador</strong>.
-                    <?php else: ?>
-                        Você está logado como <strong>Aluno</strong>.
-                    <?php endif; ?>
-                </div>
+<!-- SIDEBAR -->
+<aside class="sidebar">
+    <h3>📋 Menu</h3>
+    <ul class="sidebar-menu">
+        <li><a href="/dashboard.php" class="active">🏠 Meu Dashboard</a></li>
 
-                <!-- Informações do Usuário -->
-                <div class="card mb-20">
-                    <div class="card-header">
-                        👤 Minhas Informações
-                    </div>
-                    <div class="card-body">
-                        <table class="table">
-                            <tr>
-                                <td><strong>Nome:</strong></td>
-                                <td><?php echo htmlspecialchars($usuario['nome']); ?></td>
-                            </tr>
-                            <tr>
-                                <td><strong>Email:</strong></td>
-                                <td><?php echo htmlspecialchars($usuario['email']); ?></td>
-                            </tr>
-                            <tr>
-                                <td><strong>Função:</strong></td>
-                                <td>
-                                    <?php if ($usuario['role'] === 'admin'): ?>
-                                        <span class="badge badge-info">Administrador</span>
-                                    <?php else: ?>
-                                        <span class="badge badge-success">Aluno</span>
-                                    <?php endif; ?>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><strong>Status:</strong></td>
-                                <td>
-                                    <?php if ($usuario['ativo'] == 1): ?>
-                                        <span class="badge badge-success">✓ Ativo</span>
-                                    <?php else: ?>
-                                        <span class="badge badge-warning">⏳ Pendente de Aprovação</span>
-                                    <?php endif; ?>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><strong>Cadastrado em:</strong></td>
-                                <td>
-                                    <?php 
-                                        $data = new DateTime($usuario['created_at']);
-                                        echo $data->format('d/m/Y H:i');
-                                    ?>
-                                </td>
-                            </tr>
-                        </table>
-                    </div>
-                </div>
+        <!-- 🔥 LINK CORRIGIDO -->
+        <li><a href="/admin/material-upload.php">📂 Materiais</a></li>
 
-                <!-- Seção Cursos (Futuro) -->
-                <div class="card">
-                    <div class="card-header">
-                        📚 Meus Cursos
-                    </div>
-                    <div class="card-body">
-                        <p class="text-muted text-center">
-                            Nenhum curso disponível no momento.
-                        </p>
-                    </div>
-                </div>
+        <li><a href="/">🌐 Site</a></li>
 
-                <!-- Seção Admin -->
-                <?php if ($ehAdmin): ?>
-                    <div class="card mt-30">
-                        <div class="card-header">
-                            ⚙️ Painel Administrativo
-                        </div>
-                        <div class="card-body">
-                            <p>
-                                Você tem acesso às seguintes ferramentas administrativas:
-                            </p>
-                            <div>
-                                <a href="/admin/usuarios.php" class="btn btn-secondary btn-block">
-                                    👥 Gerenciar Usuários
-                                </a>
-                                <a href="/admin/cursos.php" class="btn btn-secondary btn-block">
-                                    📚 Gerenciar Cursos
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                <?php endif; ?>
-            </main>
-        </div>
-    </div>
+        <?php if ($ehAdmin): ?>
+        <li style="margin-top:20px;border-top:1px solid #ddd;padding-top:15px;font-size:12px;color:#555;">
+            ADMIN
+        </li>
+        <li><a href="/admin/usuarios.php">👥 Usuários</a></li>
+        <li><a href="/admin/cursos.php">📚 Cursos</a></li>
+        <?php endif; ?>
+    </ul>
+</aside>
 
-    <!-- Footer -->
-    <footer>
-        <p>&copy; 2024 NR1 EAD. Todos os direitos reservados.</p>
-    </footer>
+<!-- CONTEÚDO -->
+<main class="main-content">
+
+<h1>Dashboard</h1>
+
+<div class="alert alert-info">
+Bem-vindo, <strong><?php echo htmlspecialchars($usuario['nome']); ?></strong>.
+Você está logado como 
+<strong><?php echo $ehAdmin ? "Administrador" : "Aluno"; ?></strong>.
+</div>
+
+<!-- CARD USUÁRIO -->
+<div class="card">
+<div class="card-header">👤 Minha Conta</div>
+<div class="card-body">
+
+<table class="table">
+<tr>
+<td>Nome</td>
+<td><?php echo htmlspecialchars($usuario['nome']); ?></td>
+</tr>
+
+<tr>
+<td>Email</td>
+<td><?php echo htmlspecialchars($usuario['email']); ?></td>
+</tr>
+
+<tr>
+<td>Tipo</td>
+<td><?php echo $ehAdmin ? "Administrador" : "Aluno"; ?></td>
+</tr>
+</table>
+
+</div>
+</div>
+
+<!-- CURSOS -->
+<div class="card mt-20">
+<div class="card-header">📚 Meus Cursos</div>
+<div class="card-body">
+<p style="color:#777;text-align:center;padding:20px">
+Nenhum curso disponível no momento.
+</p>
+</div>
+</div>
+
+<?php if ($ehAdmin): ?>
+<!-- ADMIN -->
+<div class="card mt-30">
+<div class="card-header">⚙️ Administração</div>
+<div class="card-body">
+
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:15px;">
+    <a href="/admin/usuarios.php" class="btn btn-secondary">Gerenciar Usuários</a>
+    <a href="/admin/cursos.php" class="btn btn-secondary">Gerenciar Cursos</a>
+
+    <!-- 🔥 BOTÃO CORRIGIDO -->
+    <a href="/admin/material-upload.php" class="btn btn-secondary">
+        Upload de Materiais
+    </a>
+</div>
+
+</div>
+</div>
+<?php endif; ?>
+
+</main>
+</div>
+</div>
+
+<footer style="background:#2c3e50;color:white;text-align:center;padding:20px;margin-top:40px">
+&copy; 2024 NR1 EAD
+</footer>
+
 </body>
 </html>
