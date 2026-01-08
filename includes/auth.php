@@ -292,4 +292,103 @@ function getUsuariosAprovados() {
     );
 }
 
+/**
+ * Verificar se usuário pode acessar um curso
+ */
+function podeAcessarCurso($usuarioId, $cursoId) {
+    global $conn;
+    
+    // Admin tem acesso a tudo
+    if (ehAdmin()) {
+        return true;
+    }
+    
+    // Verificar se está inscrito no curso
+    $acesso = getRow($conn,
+        'SELECT id, access_level FROM user_access_control WHERE usuario_id = ? AND curso_id = ? AND access_level != ?',
+        [$usuarioId, $cursoId, 'bloqueado']
+    );
+    
+    return $acesso !== null;
+}
+
+/**
+ * Verificar se usuário pode acessar materiais
+ */
+function podeAcessarMateriais($usuarioId, $cursoId) {
+    global $conn;
+    
+    // Admin tem acesso a tudo
+    if (ehAdmin()) {
+        return true;
+    }
+    
+    // Verificar permissão no controle de acesso
+    $acesso = getRow($conn,
+        'SELECT pode_ver_materiais FROM user_access_control WHERE usuario_id = ? AND curso_id = ? AND access_level != ?',
+        [$usuarioId, $cursoId, 'bloqueado']
+    );
+    
+    if (!$acesso) {
+        return false;
+    }
+    
+    return (bool) $acesso['pode_ver_materiais'];
+}
+
+/**
+ * Registrar novo usuário no curso (criar acesso)
+ */
+function registrarUsuarioNoCurso($usuarioId, $cursoId, $nivelAcesso = 'completo') {
+    global $conn;
+    
+    // Verificar se já existe
+    $existente = getRow($conn,
+        'SELECT id FROM user_access_control WHERE usuario_id = ? AND curso_id = ?',
+        [$usuarioId, $cursoId]
+    );
+    
+    if ($existente) {
+        return ['sucesso' => false, 'mensagem' => 'Usuário já registrado neste curso'];
+    }
+    
+    executeQuery($conn,
+        'INSERT INTO user_access_control (usuario_id, curso_id, access_level, pode_ver_materiais, data_criacao) VALUES (?, ?, ?, ?, NOW())',
+        [$usuarioId, $cursoId, $nivelAcesso, true]
+    );
+    
+    return ['sucesso' => true, 'mensagem' => 'Usuário registrado no curso'];
+}
+
+/**
+ * Atualizar permissões de usuário
+ */
+function atualizarPermissaoUsuario($usuarioId, $cursoId, $dados) {
+    global $conn;
+    
+    $accessLevel = $dados['access_level'] ?? 'completo';
+    $podeVerMateriais = isset($dados['pode_ver_materiais']) ? (bool) $dados['pode_ver_materiais'] : true;
+    
+    executeQuery($conn,
+        'UPDATE user_access_control SET access_level = ?, pode_ver_materiais = ? WHERE usuario_id = ? AND curso_id = ?',
+        [$accessLevel, $podeVerMateriais, $usuarioId, $cursoId]
+    );
+    
+    return ['sucesso' => true, 'mensagem' => 'Permissões atualizadas'];
+}
+
+/**
+ * Remover acesso de usuário a curso
+ */
+function removerAccessoCurso($usuarioId, $cursoId) {
+    global $conn;
+    
+    executeQuery($conn,
+        'DELETE FROM user_access_control WHERE usuario_id = ? AND curso_id = ?',
+        [$usuarioId, $cursoId]
+    );
+    
+    return ['sucesso' => true, 'mensagem' => 'Acesso removido'];
+}
+
 ?>

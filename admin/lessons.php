@@ -33,14 +33,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ($acao === 'criar') {
         $titulo = $_POST['titulo'] ?? '';
         $conteudo = $_POST['conteudo'] ?? '';
+        $youtube_url = $_POST['youtube_url'] ?? '';
         $ordem = $_POST['ordem'] ?? 1;
         
         if (empty($titulo)) {
             $erro = 'Título é obrigatório!';
         } else {
             executeQuery($conn,
-                'INSERT INTO aulas (modulo_id, titulo, conteudo, ordem, created_at) VALUES (?, ?, ?, ?, NOW())',
-                [$moduloId, $titulo, $conteudo, $ordem]
+                'INSERT INTO aulas (modulo_id, titulo, conteudo, youtube_url, ordem, created_at) VALUES (?, ?, ?, ?, ?, NOW())',
+                [$moduloId, $titulo, $conteudo, $youtube_url ?: null, $ordem]
             );
             $mensagem = 'Aula criada com sucesso!';
         }
@@ -48,14 +49,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $aulaId = $_POST['aula_id'] ?? '';
         $titulo = $_POST['titulo'] ?? '';
         $conteudo = $_POST['conteudo'] ?? '';
+        $youtube_url = $_POST['youtube_url'] ?? '';
         $ordem = $_POST['ordem'] ?? 1;
         
         if (empty($titulo)) {
             $erro = 'Título é obrigatório!';
         } else {
             executeQuery($conn,
-                'UPDATE aulas SET titulo = ?, conteudo = ?, ordem = ? WHERE id = ?',
-                [$titulo, $conteudo, $ordem, $aulaId]
+                'UPDATE aulas SET titulo = ?, conteudo = ?, youtube_url = ?, ordem = ? WHERE id = ?',
+                [$titulo, $conteudo, $youtube_url ?: null, $ordem, $aulaId]
             );
             $mensagem = 'Aula atualizada!';
         }
@@ -103,12 +105,10 @@ $todosOsModulos = getRows($conn,
 <body>
     <!-- Navbar -->
     <nav class="navbar">
-        <div class="container">
-            <a href="/" class="navbar-brand">🎓 NR1 EAD Admin</a>
-            <div class="navbar-user">
-                <span>Olá, <strong><?php echo htmlspecialchars($usuario['nome']); ?></strong></span>
-                <a href="/logout.php" class="btn btn-small btn-secondary">Sair</a>
-            </div>
+        <a href="/" class="navbar-brand">🎓 NR1 EAD Admin</a>
+        <div class="navbar-menu">
+            <span>Olá, <strong><?php echo htmlspecialchars($usuario['nome']); ?></strong></span>
+            <a href="/logout.php">Sair</a>
         </div>
     </nav>
 
@@ -204,6 +204,18 @@ $todosOsModulos = getRows($conn,
                                             value="<?php echo htmlspecialchars($aulaEditando['ordem'] ?? 1); ?>"
                                         >
                                     </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="youtube_url">URL do Vídeo YouTube (Opcional)</label>
+                                    <input 
+                                        type="text" 
+                                        id="youtube_url" 
+                                        name="youtube_url" 
+                                        placeholder="https://www.youtube.com/watch?v=xxxxx"
+                                        value="<?php echo htmlspecialchars($aulaEditando['youtube_url'] ?? ''); ?>"
+                                    >
+                                    <small>Exemplo: https://www.youtube.com/watch?v=xxxxx</small>
                                 </div>
 
                                 <div class="form-group">

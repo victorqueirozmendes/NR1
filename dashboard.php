@@ -32,12 +32,10 @@ if ($ehAdmin) {
 <body>
     <!-- Navbar -->
     <nav class="navbar">
-        <div class="container">
-            <a href="/" class="navbar-brand">NR1 EAD</a>
-            <div class="navbar-user">
-                <span>Bem-vindo, <strong><?php echo htmlspecialchars($usuario['nome']); ?></strong></span>
-                <a href="/logout.php" class="btn btn-small btn-secondary">Sair</a>
-            </div>
+        <a href="/" class="navbar-brand">NR1 EAD</a>
+        <div class="navbar-menu">
+            <span>Bem-vindo, <strong><?php echo htmlspecialchars($usuario['nome']); ?></strong></span>
+            <a href="/logout.php">Sair</a>
         </div>
     </nav>
 

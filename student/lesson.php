@@ -135,12 +135,10 @@ $aulaProxima = getRow($conn,
 <body>
     <!-- Navbar -->
     <nav class="navbar">
-        <div class="container">
-            <a href="/" class="navbar-brand">🎓 NR1 EAD</a>
-            <div class="navbar-user">
-                <span>Olá, <strong><?php echo htmlspecialchars($usuario['nome']); ?></strong></span>
-                <a href="/logout.php" class="btn btn-small btn-secondary">Sair</a>
-            </div>
+        <a href="/" class="navbar-brand">🎓 NR1 EAD</a>
+        <div class="navbar-menu">
+            <span>Olá, <strong><?php echo htmlspecialchars($usuario['nome']); ?></strong></span>
+            <a href="/logout.php">Sair</a>
         </div>
     </nav>
 
@@ -183,6 +181,29 @@ $aulaProxima = getRow($conn,
                 <?php if ($estaCompletada): ?>
                     <div class="alert alert-success">
                         ✓ Você já completou esta aula em <?php echo (new DateTime($progresso['data_conclusao']))->format('d/m/Y H:i'); ?>
+                    </div>
+                <?php endif; ?>
+
+                <!-- Vídeo do YouTube -->
+                <?php if (!empty($aula['youtube_url'])): ?>
+                    <div class="video-container">
+                        <?php 
+                        // Extrair ID do vídeo da URL
+                        preg_match('/(?:youtube\.com\/watch\?v=|youtu\.be\/)([a-zA-Z0-9_-]+)/', $aula['youtube_url'], $matches);
+                        $videoId = $matches[1] ?? '';
+                        
+                        if ($videoId):
+                        ?>
+                            <iframe 
+                                width="100%" 
+                                height="400" 
+                                src="https://www.youtube.com/embed/<?php echo htmlspecialchars($videoId); ?>" 
+                                title="Vídeo da Aula"
+                                frameborder="0" 
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                                allowfullscreen>
+                            </iframe>
+                        <?php endif; ?>
                     </div>
                 <?php endif; ?>
 

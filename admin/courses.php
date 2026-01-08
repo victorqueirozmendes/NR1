@@ -76,12 +76,10 @@ if (isset($_GET['editar'])) {
 <body>
     <!-- Navbar -->
     <nav class="navbar">
-        <div class="container">
-            <a href="/" class="navbar-brand">🎓 NR1 EAD Admin</a>
-            <div class="navbar-user">
-                <span>Olá, <strong><?php echo htmlspecialchars($usuario['nome']); ?></strong></span>
-                <a href="/logout.php" class="btn btn-small btn-secondary">Sair</a>
-            </div>
+        <a href="/" class="navbar-brand">🎓 NR1 EAD Admin</a>
+        <div class="navbar-menu">
+            <span>Olá, <strong><?php echo htmlspecialchars($usuario['nome']); ?></strong></span>
+            <a href="/logout.php">Sair</a>
         </div>
     </nav>
 
