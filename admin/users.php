@@ -36,7 +36,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     } elseif ($acao === 'promover' && $usuarioId) {
         // Promover usuário a admin
-        $resultado = getRow($conn, 
+        $resultado = executeQuery($conn, 
             'UPDATE usuarios SET role = "admin" WHERE id = ? AND role = "aluno"',
             [$usuarioId]
         );
@@ -44,7 +44,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     } elseif ($acao === 'rebaixar' && $usuarioId) {
         // Rebaixar admin para aluno
         if ($usuarioId != $usuario['id']) { // Não pode rebaixar a si mesmo
-            $resultado = getRow($conn,
+            $resultado = executeQuery($conn,
                 'UPDATE usuarios SET role = "aluno" WHERE id = ? AND role = "admin"',
                 [$usuarioId]
             );

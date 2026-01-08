@@ -12,7 +12,7 @@ verificarLogin();
 $usuario = getUsuarioLogado();
 
 // Se for admin, redirecionar
-if ($usuario['role'] === 'admin') {
+if (!$usuario || $usuario['role'] === 'admin') {
     header('Location: /admin/users.php');
     exit;
 }

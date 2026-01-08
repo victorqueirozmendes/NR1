@@ -1,15 +1,14 @@
 <?php
-/**
- * Dashboard do Usuário
- * /dashboard.php
- */
-
 require_once __DIR__ . '/includes/auth.php';
+require_once __DIR__ . '/includes/db.php';
 
-// Verificar se está logado
 verificarLogin();
 
 $usuario = getUsuarioLogado();
+if (!$usuario) {
+    header('Location: /login.php');
+    exit;
+}
 $ehAdmin = ehAdmin();
 
 // Se é admin, adicionar link para gerenciamento

@@ -11,7 +11,7 @@ verificarLogin();
 
 $usuario = getUsuarioLogado();
 
-if ($usuario['role'] === 'admin') {
+if (!$usuario || $usuario['role'] === 'admin') {
     header('Location: /admin/users.php');
     exit;
 }
@@ -27,7 +27,16 @@ if (!$aula) {
 
 // Buscar módulo e curso para verificar acesso
 $modulo = getRow($conn, 'SELECT * FROM modulos WHERE id = ?', [$aula['modulo_id']]);
+if (!$modulo) {
+    header('Location: /student/dashboard.php');
+    exit;
+}
+
 $curso = getRow($conn, 'SELECT * FROM cursos WHERE id = ?', [$modulo['curso_id']]);
+if (!$curso) {
+    header('Location: /student/dashboard.php');
+    exit;
+}
 
 // Verificar se aluno está inscrito no curso
 $acesso = getRow($conn,
