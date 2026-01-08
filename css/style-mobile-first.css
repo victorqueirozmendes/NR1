@@ -1311,3 +1311,55 @@ footer p {
         flex-direction: column;
     }
 }
+
+/* ===== TABLE WRAPPER (Responsivo) ===== */
+.table-wrapper {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    margin: -15px -15px 0 -15px;
+}
+
+@media (max-width: 768px) {
+    .table-wrapper {
+        margin: 0;
+        border-radius: 0;
+    }
+    
+    .table-wrapper table {
+        min-width: 500px;
+    }
+    
+    .table thead {
+        display: none;
+    }
+    
+    .table tbody tr {
+        display: grid;
+        grid-template-columns: 1fr;
+        border: 1px solid #ecf0f1;
+        border-radius: 4px;
+        margin-bottom: 15px;
+        padding: 0;
+    }
+    
+    .table td {
+        padding: 12px;
+        border: none;
+        border-bottom: 1px solid #ecf0f1;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    
+    .table td:last-child {
+        border-bottom: none;
+    }
+    
+    .table td:before {
+        content: attr(data-label);
+        font-weight: 600;
+        color: #2c3e50;
+        margin-right: 10px;
+        min-width: 100px;
+    }
+}

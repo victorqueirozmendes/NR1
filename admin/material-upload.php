@@ -208,7 +208,7 @@ $todosOsMateriais = getRows($conn,
                     </div>
                     <div class="card-body">
                         <?php if (count($todosOsMateriais) > 0): ?>
-                            <div>
+                            <div class="table-wrapper">
                                 <table class="table">
                                     <thead>
                                         <tr>
@@ -223,24 +223,24 @@ $todosOsMateriais = getRows($conn,
                                     <tbody>
                                         <?php foreach ($todosOsMateriais as $mat): ?>
                                             <tr>
-                                                <td>
+                                                <td data-label="Curso">
                                                     <?php echo htmlspecialchars($mat['curso_titulo']); ?>
                                                 </td>
-                                                <td>
+                                                <td data-label="Módulo">
                                                     <?php echo htmlspecialchars($mat['modulo_titulo']); ?>
                                                 </td>
-                                                <td>
+                                                <td data-label="Aula">
                                                     <strong><?php echo htmlspecialchars($mat['aula_titulo']); ?></strong>
                                                 </td>
-                                                <td>
+                                                <td data-label="Material">
                                                     <a href="/uploads/materiais/<?php echo htmlspecialchars($mat['arquivo']); ?>" target="_blank" class="text-primary">
                                                         📄 <?php echo htmlspecialchars($mat['titulo']); ?>
                                                     </a>
                                                 </td>
-                                                <td>
+                                                <td data-label="Enviado em">
                                                     <?php echo (new DateTime($mat['created_at']))->format('d/m/Y H:i'); ?>
                                                 </td>
-                                                <td>
+                                                <td data-label="Ações">
                                                     <div class="table-actions">
                                                         <a href="/uploads/materiais/<?php echo htmlspecialchars($mat['arquivo']); ?>" target="_blank" class="btn btn-secondary btn-small">
                                                             👁️ Ver

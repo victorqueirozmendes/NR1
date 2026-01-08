@@ -107,7 +107,7 @@ $usuariosAprovados = getUsuariosAprovados();
                     </div>
                     <div class="card-body">
                         <?php if (count($usuariosPendentes) > 0): ?>
-                            <div>
+                            <div class="table-wrapper">
                                 <table class="table">
                                     <thead>
                                         <tr>
@@ -171,7 +171,7 @@ $usuariosAprovados = getUsuariosAprovados();
                     </div>
                     <div class="card-body">
                         <?php if (count($usuariosAprovados) > 0): ?>
-                            <div>
+                            <div class="table-wrapper">
                                 <table class="table">
                                     <thead>
                                         <tr>

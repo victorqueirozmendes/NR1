@@ -160,11 +160,11 @@ if ($filtro === 'pendentes') {
                 <!-- Tabela de Usuários -->
                 <div class="card">
                     <div class="card-header">
-                        Usuários (<?php echo count($usuarios); ?>)
+                        👥 Usuários (<?php echo count($usuarios); ?>)
                     </div>
                     <div class="card-body">
                         <?php if (count($usuarios) > 0): ?>
-                            <div>
+                            <div class="table-wrapper">
                                 <table class="table">
                                     <thead>
                                         <tr>

@@ -230,7 +230,8 @@ $todosOsCursos = getRows($conn, 'SELECT id, titulo FROM cursos ORDER BY titulo A
                         </div>
                         <div class="card-body">
                             <?php if (count($modulos) > 0): ?>
-                                <table class="table">
+                                <div class="table-wrapper">
+                                    <table class="table">
                                     <thead>
                                         <tr>
                                             <th>Ordem</th>
