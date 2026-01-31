@@ -302,9 +302,9 @@ body {
     100% { opacity: 0; transform: translateX(-50%) translateY(20px); }
 }
 
-/* ==================== URGENCY BANNER ==================== */
+/* ==================== VALOR BANNER ==================== */
 .urgency-banner {
-    background: linear-gradient(135deg, #ffc107 0%, #ff9800 100%);
+    background: linear-gradient(135deg, #00d084 0%, #00b4d8 100%);
     padding: 1.5rem 0;
 }
 
@@ -327,29 +327,30 @@ body {
 
 .urgency-text h3 {
     font-size: 1.5rem;
-    color: var(--dark);
+    color: var(--white);
     margin-bottom: 0.5rem;
 }
 
 .urgency-text p {
-    color: rgba(0, 0, 0, 0.8);
+    color: rgba(255, 255, 255, 0.95);
     font-size: 1rem;
 }
 
 .urgency-btn {
-    background: var(--dark);
-    color: var(--white);
+    background: var(--white);
+    color: var(--primary);
     padding: 1rem 2rem;
     border-radius: 50px;
     text-decoration: none;
     font-weight: 600;
     transition: var(--transition);
     white-space: nowrap;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
 }
 
 .urgency-btn:hover {
     transform: translateY(-2px);
-    box-shadow: var(--shadow-lg);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
 }
 
 /* ==================== CONTAINER & SECTIONS ==================== */
@@ -408,6 +409,65 @@ body {
     grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
     gap: 2.5rem;
 }
+
+/* ==================== PSYCHOSOCIAL SECTION ==================== */
+.psycho-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 2rem;
+    margin-bottom: 3rem;
+}
+
+.psycho-item {
+    background: var(--light-gray);
+    padding: 2.5rem;
+    border-radius: var(--radius);
+    text-align: center;
+    transition: var(--transition);
+    border: 2px solid transparent;
+}
+
+.psycho-item:hover {
+    border-color: var(--accent);
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-md);
+}
+
+.psycho-icon {
+    font-size: 3rem;
+    margin-bottom: 1.5rem;
+}
+
+.psycho-item h3 {
+    font-size: 1.3rem;
+    color: var(--primary);
+    margin-bottom: 1rem;
+}
+
+.psycho-item p {
+    color: var(--gray);
+    line-height: 1.7;
+}
+
+.psycho-cta {
+    background: linear-gradient(135deg, rgba(0, 180, 216, 0.1), rgba(11, 60, 93, 0.1));
+    padding: 2.5rem;
+    border-radius: var(--radius);
+    text-align: center;
+    border-left: 4px solid var(--accent);
+}
+
+.psycho-cta p {
+    font-size: 1.2rem;
+    color: var(--primary);
+    line-height: 1.8;
+}
+
+.psycho-cta strong {
+    color: var(--accent);
+}
+
+/* ==================== TEAM SECTION ==================== */
 
 .team-card {
     background: var(--white);
@@ -927,4 +987,4 @@ footer {
         left: 35px;
         top: 80px;
     }
-}                                                                                                                                               
+}
